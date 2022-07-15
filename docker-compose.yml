@@ -1,0 +1,40 @@
+version: "3"
+
+services:
+  node:
+    build: .
+    user: node
+    working_dir: /app
+    volumes:
+      - ./:/app
+    container_name: desafio_xp
+    tty: true
+    stdin_open: true
+    #command: bash -c 'npm run prestart && npm run seed && npm run debug'
+    command: bash
+    # para ver os logs executar no bash: docker logs -f desafio_xp
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - 3000:3000
+    environment:
+      TZ: "America/Sao_Paulo" # Configuração para deixar o timezone do Brasil/Brasilia
+      MYSQL_USER: root
+      MYSQL_PASSWORD: password
+      HOSTNAME: db
+      JWT_SECRET: a64f124bb29741f9274fe8e7dd5896e3
+  db:
+    container_name: desafio_xp_db
+    image: mysql:8.0.21
+    platform: linux/x86_64
+    restart: always
+    ports:
+      - 3306:3306
+      - 33060:33060
+    environment:
+      MYSQL_ROOT_PASSWORD: password
+
+networks:
+  default:
+    name: desafio_xp_net
