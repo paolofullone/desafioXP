@@ -6,94 +6,94 @@ USE Desafio_XP;
 
 CREATE TABLE
     `clients`(
-        `client_id` INT UNSIGNED NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `client_id` VARCHAR(255) PRIMARY KEY,
         `email` VARCHAR(255) NOT NULL UNIQUE,
         `password` VARCHAR(255) NOT NULL,
         `user_name` VARCHAR(255) NOT NULL,
         `account_balance` DECIMAL(8, 2) NOT NULL,
-        `date_created` DATETIME,
-        `last_login` DATETIME
+        `created_at` DATETIME,
+        `updated_at` DATETIME
     );
 
 CREATE TABLE
     `stocks`(
-        `stock_id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+        `stock_id` VARCHAR(255) PRIMARY KEY,
         `quantity` INT NOT NULL,
         `value` DECIMAL(8, 2) NOT NULL,
         `ticker` VARCHAR(255) NOT NULL UNIQUE,
-        `name` VARCHAR(255) NULL
+        `name` VARCHAR(255) NULL,
+        `created_at` DATETIME,
+        `updated_at` DATETIME
     );
 
 CREATE TABLE
     `stock_client_ops` (
-        `stock_id` INT NOT NULL,
-        `client_id` INT NOT NULL,
+        `stock_id` VARCHAR(255),
+        `client_id` VARCHAR(255),
         `quantity` INT NOT NULL,
         `value` DECIMAL(8, 2) NOT NULL,
         `operation` VARCHAR(255) NOT NULL,
+        `created_at` DATETIME,
+        `updated_at` DATETIME,
         PRIMARY KEY (`stock_id`, `client_id`)
     );
 
 INSERT INTO
     `clients` (
+        `client_id`,
         `email`,
         `password`,
         `user_name`,
         `account_balance`,
-        `date_created`,
-        `last_login`
+        `created_at`,
+        `updated_at`
     )
 VALUES (
-        'paolo@xpinc.com',
-        'vouseraprovadonoprocesso',
+        'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
+        'paolo@xp.com',
+        '123456',
         'Paolo',
-        '100000.00',
-        '2022-07-15 00:00:00',
-        '2022-07-15 00:00:00'
+        '0.00',
+        NOW(),
+        NOW()
     ), (
-        'luca@gmail.com',
-        'vaiserbeneficiado',
-        'Luca',
-        '100.00',
-        '2022-07-15 00:00:00',
-        '2022-07-15 00:00:00'
-    ), (
-        'manu@gmail.com',
-        'vaiserbeneficiada',
-        'Manu',
-        '100.00',
-        '2022-07-15 00:00:00',
-        '2022-07-15 00:00:00'
+      '4907c20d-4d8e-4714-a8d2-fc9138602f80',
+      'luca@xpinc.com',
+      '123456',
+      'Luca',
+      '1000.00',
+      NOW(),
+      NOW()
     );
 
 INSERT INTO
     `stocks` (
+        `stock_id`,
+        `quantity`,
+        `value`,
         `ticker`,
         `name`,
-        `quantity`,
-        `value`
+        `created_at`,
+        `updated_at`
     )
 VALUES (
-        'CMIG4',
-        'CEMIG',
+        '670ef6c0-5f48-450d-afc8-e2794d19a49a',
         '100000',
-        '10.44'
-    ), (
+        '10.00',
         'PETR4',
-        'Petrobras',
-        '10000',
-        '28.15'
+        'PETROBRAS',
+        NOW(),
+        NOW()
     ), (
-        'VALE3',
-        'Vale',
-        '1000',
-        '68.47'
-    ), ('ITUB3', 'Itaú', '100', '19.61'), (
-        'GGBB4',
-        'Gerdau',
-        '10',
-        '23.50'
+        '3f335ba1-5f8a-4b50-b309-3bdcfffb3040 ',
+        '100000',
+        '10.00',
+        'VALE5',
+        'VALE',
+        NOW(),
+        NOW()
     );
+  
 
 INSERT INTO
     `stock_client_ops` (
@@ -101,6 +101,16 @@ INSERT INTO
         `client_id`,
         `quantity`,
         `value`,
-        `operation`
+        `operation`,
+        `created_at`,
+        `updated_at`
     )
-VALUES ('1', '1', '100', '10.44', 'buy'), ('2', '1', '100', '28.15', 'buy'), ('3', '1', '100', '68.47', 'buy'), ('4', '1', '100', '19.61', 'buy'), ('5', '1', '100', '23.50', 'buy')
+VALUES (
+        'cc458bbb-98a4-471e-81d3-ad76236ebf14 ',
+        '75e72c93-975d31',
+        '100',
+        '100.00',
+        'buy',
+        NOW(),
+        NOW()
+    );
