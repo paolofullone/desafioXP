@@ -5,11 +5,16 @@ const getAll = async () => {
   return stocks;
 };
 
+const getById = async (stockId) => {
+  const [stock] = await connection.execute('SELECT * FROM stocks WHERE stock_id = ?', [stockId]);
+  return stock;
+};
+
 const update = async (stock, route) => {
   const operation = route === '/purchase' ? '-' : '+';
   const { stockId } = stock;
   let { quantity } = stock;
-  quantity = operation === '-' ? quantity : -quantity;
+  quantity = operation === '-' ? -quantity : +quantity;
   const [updatedStock] = await connection.execute(
     'UPDATE stocks SET quantity = quantity + ? WHERE stock_id = ?',
     [quantity, stockId],
@@ -17,4 +22,4 @@ const update = async (stock, route) => {
   return updatedStock;
 };
 
-module.exports = { getAll, update };
+module.exports = { getAll, getById, update };

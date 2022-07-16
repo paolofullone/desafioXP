@@ -21,11 +21,13 @@ const updateStocks = async (stocks, route) => {
   });
 };
 
+// FALTA ATUALIZAR O BALANCE DO USER
+
 const create = async (email, stocks, route) => {
   const userId = await usersModel.getByEmail(email);
   createOperations(stocks, userId, route);
   updateStocks(stocks, route);
-  return 'ok';
+  return stocks;
 };
 
 module.exports = { getAll, create };
