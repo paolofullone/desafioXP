@@ -5,4 +5,4 @@ const getAll = async () => {
   return rows;
 };
 
-export default {getAll};
+module.exports = {getAll};
