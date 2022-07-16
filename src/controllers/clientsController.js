@@ -5,4 +5,4 @@ const getAll = async (_req, res) => {
   return res.status(200).json(clients);
 };
 
-export default {getAll};
+module.exports = {getAll};
