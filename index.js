@@ -13,7 +13,7 @@ app.use(cors());
 app.use('/clients', clientsRouter);
 
 // hello world
-app.get('/', (req, res) => {
+app.get('/', (_req, res) => {
   res.send('Hello World!');
 });
 
