@@ -3,8 +3,7 @@ const jwt = require('jsonwebtoken');
 const { JWT_SECRET } = process.env;
 
 const jwtConfig = {
-  // 3 days token expiration
-  expiresIn: '4320m',
+  expiresIn: '14400m',
   algorithm: 'HS256',
 };
 const generateJWTToken = (email) => jwt.sign({ email }, JWT_SECRET, jwtConfig);
