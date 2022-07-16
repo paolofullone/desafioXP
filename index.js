@@ -7,12 +7,16 @@ const cors = require('cors');
 const { PORT } = process.env || 3000;
 
 const clientsRouter = require('./src/routes/clientsRouter');
+const stocksRouter = require('./src/routes/stocksRouter');
+const stocksOpsRouter = require('./src/routes/StocksOpsRouter');
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
 app.use('/clients', clientsRouter);
+app.use('/stocks', stocksRouter);
+app.use('/stocksOperations', stocksOpsRouter);
 
 // hello world
 app.get('/', (_req, res) => {
