@@ -1,23 +1,28 @@
-require('express-async-errors');
-require('dotenv/config');
-require('cors');
-
 const express = require('express');
+require('express-async-errors');
+require('dotenv').config();
+
+const cors = require('cors');
+
+const clientsRouter = require('./src/routes/clientsRouter');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
-
 app.use(express.json());
+app.use(cors());
 
-app.get('/', (_req, res) => {
-  res.send(`<h1> Hello World on port: ${PORT} </h1>`);
+app.use('/clients', clientsRouter);
+
+// hello world
+app.get('/', (req, res) => {
+  res.send('Hello World!');
 });
 
 app.use((err, _req, res, next) => {
+  console.error(err);
   res.status(err.status || 500).json({message: err.message});
   next();
 });
 
-app.listen(PORT, () => {
-  console.log(`Listening on port: ${process.env.PORT}`);
+app.listen(process.env.PORT, () => {
+  console.log(`Escutando na porta ${process.env.PORT}`);
 });
