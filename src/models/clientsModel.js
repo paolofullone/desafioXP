@@ -5,4 +5,9 @@ const getAll = async () => {
   return clients;
 };
 
-module.exports = { getAll };
+const getByEmail = async (email, password) => {
+  const [client] = await connection.execute('SELECT * FROM clients WHERE email = ? AND password = ?', [email, password]);
+  return client;
+};
+
+module.exports = { getAll, getByEmail };
