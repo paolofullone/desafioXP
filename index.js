@@ -3,6 +3,7 @@ require('express-async-errors');
 require('dotenv').config();
 
 const cors = require('cors');
+
 const { PORT } = process.env || 3000;
 
 const clientsRouter = require('./src/routes/clientsRouter');
@@ -20,7 +21,7 @@ app.get('/', (_req, res) => {
 
 app.use((err, _req, res, next) => {
   console.error(err);
-  res.status(err.status || 500).json({message: err.message});
+  res.status(err.status || 500).json({ message: err.message });
   next();
 });
 

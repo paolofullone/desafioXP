@@ -5,4 +5,4 @@ const getAll = async () => {
   return clients;
 };
 
-module.exports = {getAll};
+module.exports = { getAll };
