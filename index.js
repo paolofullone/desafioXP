@@ -3,6 +3,7 @@ require('express-async-errors');
 require('dotenv').config();
 
 const cors = require('cors');
+const { PORT } = process.env || 3000;
 
 const clientsRouter = require('./src/routes/clientsRouter');
 
@@ -14,7 +15,7 @@ app.use('/clients', clientsRouter);
 
 // hello world
 app.get('/', (_req, res) => {
-  res.send('Hello World!');
+  res.send(`Hello World! na porta ${PORT}`);
 });
 
 app.use((err, _req, res, next) => {
@@ -23,6 +24,6 @@ app.use((err, _req, res, next) => {
   next();
 });
 
-app.listen(process.env.PORT, () => {
+app.listen(PORT, () => {
   console.log(`Escutando na porta ${process.env.PORT}`);
 });
