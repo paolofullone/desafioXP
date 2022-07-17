@@ -1,4 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
+const { userWallet } = require('../utils/userWallet');
+
 const stocksOpsModel = require('../models/stocksOpsModel');
 const stocksModel = require('../models/stocksModel');
 const usersModel = require('../models/usersModel');
@@ -6,6 +8,12 @@ const usersModel = require('../models/usersModel');
 const getAll = async (email) => {
   const stocksOps = await stocksOpsModel.getAll(email);
   return stocksOps;
+};
+
+const getByUserId = async (email) => {
+  const stocksOps = await stocksOpsModel.getByUserId(email);
+  const wallet = userWallet(stocksOps);
+  return wallet;
 };
 
 const createOperations = (stocks, userId, route) => {
@@ -30,4 +38,4 @@ const create = async (email, stocks, route) => {
   return stocks;
 };
 
-module.exports = { getAll, create };
+module.exports = { getAll, create, getByUserId };

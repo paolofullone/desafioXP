@@ -8,6 +8,7 @@ const validateStocks = require('../middleware/validateStocks');
 const validateBallance = require('../middleware/vallidateBallance');
 
 router.get('/', validateAuth, stocksOpsController.getAll);
+router.get('/:id', validateAuth, stocksOpsController.getByUserId);
 router.post('/purchase', validateAuth, validateStocks, validateBallance, stocksOpsController.create);
 router.post('/sell', validateAuth, stocksOpsController.create);
 

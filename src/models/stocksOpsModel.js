@@ -1,4 +1,5 @@
 const connection = require('../db/connection');
+const usersModel = require('./usersModel');
 
 const getAll = async (email) => {
   const [user] = await connection.execute(
@@ -20,6 +21,15 @@ const getAll = async (email) => {
   return stocksOps;
 };
 
+const getByUserId = async (email) => {
+  const user = await usersModel.getByEmail(email);
+  const [stocksOps] = await connection.execute(
+    'SELECT * FROM stock_client_ops WHERE user_id = ?',
+    [user[0].user_id],
+  );
+  return stocksOps;
+};
+
 const create = async (opId, userId, stock, route) => {
   const operation = route === '/purchase' ? 'buy' : 'sell';
   const { stockId, quantity } = stock;
@@ -34,4 +44,4 @@ const create = async (opId, userId, stock, route) => {
   return stockOperation;
 };
 
-module.exports = { getAll, create };
+module.exports = { getAll, create, getByUserId };
