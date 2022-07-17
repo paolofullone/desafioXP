@@ -57,7 +57,6 @@ const create = async (userId, user, role = 'client') => {
     [userId, email, password, userName, ballance, role, new Date(), new Date()],
   );
   const newUser = await getByEmail(email);
-  console.log('newuser', newUser);
   return newUser;
 };
 
