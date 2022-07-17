@@ -10,5 +10,6 @@ router.use(validateAuth);
 router.get('/', usersController.getAll);
 router.post('/deposit', usersController.transaction);
 router.post('/withdraw', validateWithdraw, usersController.transaction);
+router.get('/ballance', usersController.getBallance);
 
 module.exports = router;
