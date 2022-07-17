@@ -15,7 +15,7 @@ const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/clients', usersRouter);
+app.use('/users', usersRouter);
 app.use('/stocks', stocksRouter);
 app.use('/stocksOperations', stocksOpsRouter);
 app.use('/login', loginRouter);
@@ -26,7 +26,7 @@ app.get('/', (_req, res) => {
 });
 
 app.use((err, _req, res, next) => {
-  console.error(err);
+  // console.error(err);
   res.status(err.status || 500).json({ message: err.message });
   next();
 });
