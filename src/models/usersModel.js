@@ -1,4 +1,5 @@
 const connection = require('../db/connection');
+// const { userWallet } = require('../utils/userWallet');
 
 const getAll = async () => {
   const [users] = await connection.execute('SELECT * FROM users');
@@ -12,6 +13,7 @@ const getByEmail = async (email) => {
 
 const getByEmailAndPassword = async (email, password) => {
   const [user] = await connection.execute('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
+  // userWallet(user);
   return user;
 };
 
