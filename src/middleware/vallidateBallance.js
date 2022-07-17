@@ -1,6 +1,6 @@
-/* eslint-disable no-console */
 const usersModel = require('../models/usersModel');
 const stocksModel = require('../models/stocksModel');
+const { totalOperationValue } = require('../utils/totalOpValue');
 
 const getAllStocks = (operations) => {
   const promises = operations.map(async (operation) => {
@@ -11,15 +11,8 @@ const getAllStocks = (operations) => {
 };
 
 const verifyBallance = (operations, stocks, ballance) => {
-  console.log('operations', operations);
-  console.log('stocks', stocks);
-  console.log('ballance', +ballance);
-  const totalCost = operations.map((operation) => {
-    const stock = stocks.find((s) => s.stock_id === operation.stockId);
-    return operation.quantity * (+stock.value);
-  }).reduce((acc, curr) => acc + curr, 0);
-  console.log('totalCost', totalCost);
-  if (+ballance < totalCost) {
+  const totalOpValue = totalOperationValue(operations, stocks);
+  if (+ballance < totalOpValue) {
     const error = { status: 400, message: 'Saldo insuficiente para a operação solicitada.' };
     throw error;
   }
