@@ -2,14 +2,19 @@ const connection = require('../db/connection');
 const { totalOperationValue } = require('../utils/totalOpValue');
 const stocksModel = require('./stocksModel');
 
-const getAll = async () => {
-  const [users] = await connection.execute('SELECT * FROM users');
-  return users;
-};
-
 const getByEmail = async (email) => {
   const [user] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
   return user;
+};
+
+const getAll = async (email) => {
+  const user = await getByEmail(email);
+  if (user[0].role === 'client') {
+    const [client] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
+    return client;
+  }
+  const [users] = await connection.execute('SELECT * FROM users');
+  return users;
 };
 
 const getByEmailAndPassword = async (email, password) => {

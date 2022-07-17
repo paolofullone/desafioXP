@@ -1,9 +1,9 @@
 const usersModel = require('../models/usersModel');
 const { generateJWTToken } = require('../utils/jwt');
 
-const getAll = async () => {
-  const clients = await usersModel.getAll();
-  return clients;
+const getAll = async (email) => {
+  const users = await usersModel.getAll(email);
+  return users;
 };
 
 const getByEmailAndPassword = async (email, password) => {
