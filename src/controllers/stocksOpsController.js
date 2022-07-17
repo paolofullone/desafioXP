@@ -14,8 +14,8 @@ const getByUserId = async (req, res) => {
 const create = async (req, res) => {
   const { email } = res.user;
   const route = req.route.path;
-  const stocks = req.body;
-  const stock = await stocksOpsService.create(email, stocks, route);
+  const operations = req.body;
+  const stock = await stocksOpsService.create(email, operations, route);
   return res.status(201).json(stock);
 };
 

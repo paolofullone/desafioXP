@@ -12,30 +12,30 @@ const getAll = async (email) => {
 
 const getByUserId = async (email) => {
   const stocksOps = await stocksOpsModel.getByUserId(email);
+  console.log('stockops', stocksOps);
   const wallet = userWallet(stocksOps);
   return wallet;
 };
 
-const createOperations = (stocks, userId, route) => {
-  stocks.forEach(async (stock) => {
+const createOperations = (operations, userId, route) => {
+  operations.forEach(async (operation) => {
     const opId = uuidv4();
-    await stocksOpsModel.create(opId, userId[0].user_id, stock, route);
+    await stocksOpsModel.create(opId, userId[0].user_id, operation, route);
   });
 };
 
-const updateStocks = async (stocks, route) => {
-  stocks.forEach(async (stock) => {
-    await stocksModel.update(stock, route);
+const updateStocks = async (operations, route) => {
+  operations.forEach(async (operation) => {
+    await stocksModel.update(operation, route);
   });
 };
 
-// FALTA ATUALIZAR O BALANCE DO USER
-
-const create = async (email, stocks, route) => {
+const create = async (email, operations, route) => {
   const userId = await usersModel.getByEmail(email);
-  createOperations(stocks, userId, route);
-  updateStocks(stocks, route);
-  return stocks;
+  createOperations(operations, userId, route);
+  updateStocks(operations, route);
+  await usersModel.updateBallance(userId[0].user_id, route, operations);
+  return operations;
 };
 
 module.exports = { getAll, create, getByUserId };
