@@ -21,7 +21,7 @@ const getAll = async (email) => {
   return stocksOps;
 };
 
-const getByUserId = async (email) => {
+const getByUser = async (email) => {
   const user = await usersModel.getByEmail(email);
   const [stocksOps] = await connection.execute(
     'SELECT * FROM stock_client_ops WHERE user_id = ?',
@@ -44,4 +44,4 @@ const create = async (opId, userId, operation, route) => {
   return stockOperation;
 };
 
-module.exports = { getAll, create, getByUserId };
+module.exports = { getAll, create, getByUser };

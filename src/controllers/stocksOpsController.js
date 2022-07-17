@@ -6,17 +6,17 @@ const getAll = async (req, res) => {
   return res.status(200).json(stocks);
 };
 
-const getByUserId = async (req, res) => {
-  const wallet = await stocksOpsService.getByUserId(res.user.email);
+const getByUser = async (req, res) => {
+  const wallet = await stocksOpsService.getByUser(res.user.email);
   return res.status(200).json(wallet);
 };
 
 const create = async (req, res) => {
   const { email } = res.user;
   const route = req.route.path;
-  const operations = req.body;
-  const stock = await stocksOpsService.create(email, operations, route);
+  const requestedOperations = req.body;
+  const stock = await stocksOpsService.create(email, requestedOperations, route);
   return res.status(201).json(stock);
 };
 
-module.exports = { getAll, create, getByUserId };
+module.exports = { getAll, create, getByUser };

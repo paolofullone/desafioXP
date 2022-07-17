@@ -18,14 +18,11 @@ const getByEmailAndPassword = async (email, password) => {
   return user;
 };
 
-const updateBallance = async (userId, route, operations) => {
-  // console.log(userId, route, operations);
+const updateBallance = async (userId, route, requestedOperations) => {
   const operationType = route === '/purchase' ? '-' : '+';
   const stocks = await stocksModel.getAll();
-  const totalValue = totalOperationValue(operations, stocks);
-  // console.log('totalValue', totalValue);
+  const totalValue = totalOperationValue(requestedOperations, stocks);
   const buyOrSellValue = operationType === '-' ? -totalValue : +totalValue;
-  // console.log(operationType, totalValue, buyOrSellValue);
   const [updatedUser] = await connection.execute(
     'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
     [buyOrSellValue, userId],

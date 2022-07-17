@@ -10,32 +10,31 @@ const getAll = async (email) => {
   return stocksOps;
 };
 
-const getByUserId = async (email) => {
-  const stocksOps = await stocksOpsModel.getByUserId(email);
-  console.log('stockops', stocksOps);
+const getByUser = async (email) => {
+  const stocksOps = await stocksOpsModel.getByUser(email);
   const wallet = userWallet(stocksOps);
   return wallet;
 };
 
-const createOperations = (operations, userId, route) => {
-  operations.forEach(async (operation) => {
+const createOperations = (requestedOperations, userId, route) => {
+  requestedOperations.forEach(async (operation) => {
     const opId = uuidv4();
     await stocksOpsModel.create(opId, userId[0].user_id, operation, route);
   });
 };
 
-const updateStocks = async (operations, route) => {
-  operations.forEach(async (operation) => {
+const updateStocks = async (requestedOperations, route) => {
+  requestedOperations.forEach(async (operation) => {
     await stocksModel.update(operation, route);
   });
 };
 
-const create = async (email, operations, route) => {
+const create = async (email, requestedOperations, route) => {
   const userId = await usersModel.getByEmail(email);
-  createOperations(operations, userId, route);
-  updateStocks(operations, route);
-  await usersModel.updateBallance(userId[0].user_id, route, operations);
-  return operations;
+  createOperations(requestedOperations, userId, route);
+  updateStocks(requestedOperations, route);
+  await usersModel.updateBallance(userId[0].user_id, route, requestedOperations);
+  return requestedOperations;
 };
 
-module.exports = { getAll, create, getByUserId };
+module.exports = { getAll, create, getByUser };
