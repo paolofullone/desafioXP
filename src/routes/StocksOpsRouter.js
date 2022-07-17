@@ -6,7 +6,7 @@ const stocksOpsController = require('../controllers/stocksOpsController');
 const validateAuth = require('../middleware/validateAuth');
 const validateStocks = require('../middleware/validateStocks');
 const validateSell = require('../middleware/validateSell');
-const validateBallance = require('../middleware/vallidateBallance');
+const validateBallance = require('../middleware/validateBallance');
 const validateUserSellStocks = require('../middleware/validateUserSellStocks');
 
 router.get('/', validateAuth, stocksOpsController.getAll);

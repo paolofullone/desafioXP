@@ -48,6 +48,19 @@ const transaction = async (email, amount, route) => {
   return updatedUser[0].ballance;
 };
 
+const create = async (userId, user, role = 'client') => {
+  const {
+    email, password, userName, ballance,
+  } = user;
+  await connection.execute(
+    'INSERT INTO users (user_id, email, password, user_name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
+    [userId, email, password, userName, ballance, role, new Date(), new Date()],
+  );
+  const newUser = await getByEmail(email);
+  console.log('newuser', newUser);
+  return newUser;
+};
+
 module.exports = {
-  getAll, getByEmail, getByEmailAndPassword, updateBallance, transaction,
+  getAll, getByEmail, getByEmailAndPassword, updateBallance, transaction, create,
 };

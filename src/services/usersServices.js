@@ -1,3 +1,5 @@
+const { v4: uuidv4 } = require('uuid');
+const validateAdmin = require('../middleware/validateAdmin');
 const usersModel = require('../models/usersModel');
 const { generateJWTToken } = require('../utils/jwt');
 
@@ -25,6 +27,13 @@ const transaction = async (email, amount, route) => {
   return ballance;
 };
 
+const create = async (user, email) => {
+  await validateAdmin(email);
+  const userId = uuidv4();
+  const newUser = await usersModel.create(userId, user);
+  return newUser;
+};
+
 module.exports = {
-  getAll, getByEmailAndPassword, getBallance, transaction,
+  getAll, getByEmailAndPassword, getBallance, transaction, create,
 };

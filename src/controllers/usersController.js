@@ -20,4 +20,13 @@ const transaction = async (req, res) => {
   return res.status(201).json({ message: `Movimentação realizada com sucesso. Saldo atual ${ballance}.` });
 };
 
-module.exports = { getAll, transaction, getBallance };
+const create = async (req, res) => {
+  const user = req.body;
+  const { email } = res.user;
+  const newUser = await usersServices.create(user, email);
+  return res.status(201).json(newUser);
+};
+
+module.exports = {
+  getAll, transaction, getBallance, create,
+};
