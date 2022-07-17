@@ -30,16 +30,16 @@ const getByUserId = async (email) => {
   return stocksOps;
 };
 
-const create = async (opId, userId, stock, route) => {
-  const operation = route === '/purchase' ? 'buy' : 'sell';
-  const { stockId, quantity } = stock;
+const create = async (opId, userId, operation, route) => {
+  const operationType = route === '/purchase' ? 'buy' : 'sell';
+  const { stockId, quantity } = operation;
   const [value] = await connection.execute(
     'SELECT value FROM stocks WHERE stock_id = ?',
     [stockId],
   );
   const [stockOperation] = await connection.execute(
     'INSERT INTO stock_client_ops (op_id, stock_id, user_id, quantity, value, operation, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [opId, stockId, userId, quantity, value[0].value, operation, new Date(), new Date()],
+    [opId, stockId, userId, quantity, value[0].value, operationType, new Date(), new Date()],
   );
   return stockOperation;
 };
