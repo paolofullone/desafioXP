@@ -1,5 +1,6 @@
 const connection = require('../db/connection');
-// const { userWallet } = require('../utils/userWallet');
+const { totalOperationValue } = require('../utils/totalOpValue');
+const stocksModel = require('./stocksModel');
 
 const getAll = async () => {
   const [users] = await connection.execute('SELECT * FROM users');
@@ -17,4 +18,21 @@ const getByEmailAndPassword = async (email, password) => {
   return user;
 };
 
-module.exports = { getAll, getByEmail, getByEmailAndPassword };
+const updateBallance = async (userId, route, operations) => {
+  // console.log(userId, route, operations);
+  const operationType = route === '/purchase' ? '-' : '+';
+  const stocks = await stocksModel.getAll();
+  const totalValue = totalOperationValue(operations, stocks);
+  // console.log('totalValue', totalValue);
+  const buyOrSellValue = operationType === '-' ? -totalValue : +totalValue;
+  // console.log(operationType, totalValue, buyOrSellValue);
+  const [updatedUser] = await connection.execute(
+    'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
+    [buyOrSellValue, userId],
+  );
+  return updatedUser;
+};
+
+module.exports = {
+  getAll, getByEmail, getByEmailAndPassword, updateBallance,
+};

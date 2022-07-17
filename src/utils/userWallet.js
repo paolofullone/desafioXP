@@ -1,7 +1,18 @@
 const totalWallet = (stockOps) => stockOps.map((stockOp) => {
   const eachStock = stockOps.filter((stock) => stock.stock_id === stockOp.stock_id);
-  const totalValue = eachStock.reduce((acc, curr) => acc + curr.quantity * curr.value, 0);
-  const totalQuantity = eachStock.reduce((acc, curr) => acc + curr.quantity, 0);
+  const totalValue = eachStock.reduce((acc, curr) => {
+    if (curr.operation === 'buy') {
+      return acc + (curr.quantity * curr.value);
+    }
+    return acc - (curr.quantity * curr.value);
+  }, 0);
+  const totalQuantity = eachStock.reduce((acc, curr) => {
+    if (curr.operation === 'buy') {
+      return acc + curr.quantity;
+    }
+    return acc - curr.quantity;
+  }, 0);
+
   return {
     stock_id: stockOp.stock_id,
     quantity: totalQuantity,
@@ -26,10 +37,11 @@ const uniqueWallet = (wallet) => {
 // caso não exista ele é adicionado, caso já exista segue para o próximo item do set.
 
 const userWallet = async (stockOps) => {
-  const wallet = totalWallet(stockOps).filter((stock) => stock.quantity > 0);
+  const wallet = totalWallet(stockOps).filter((stock) => stock.quantity !== 0);
   return uniqueWallet(wallet);
 };
-
-// user wallet only in one function with reduce
+// aqui a user wallet deve retornar com ações maior que zero, porém deixei
+// diferente de zero para o caso de ter alguma ação com quantidade negativa por engano.
+// aqui não vamos cobrir a venda a descoberto
 
 module.exports = { userWallet };
