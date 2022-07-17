@@ -7,8 +7,8 @@ const validate = async (requestedOperations, _req, res, next) => {
       const noStock = await stocksModel.getById(operation.stockId);
       throw new Error(`Infelizmente não temos ${operation.quantity} ações da empresa ${noStock[0].name} disponíveis.`);
     }
-    if (operation.quantity < 0) {
-      throw new Error('A quantidade deve ser maior que zero.');
+    if (operation.quantity < 0 || typeof operation.quantity !== 'number') {
+      throw new Error('A quantidade deve ser um número maior que zero.');
     }
   });
   Promise.all(promises)
