@@ -5,4 +5,12 @@ const getAll = async (_req, res) => {
   return res.status(200).json(clients);
 };
 
-module.exports = { getAll };
+const transaction = async (req, res) => {
+  const { email } = res.user;
+  const { amount } = req.body;
+  const route = req.route.path;
+  const ballance = await usersServices.transaction(email, amount, route);
+  return res.status(201).json({ message: `Movimentação realizada com sucesso. Saldo atual ${ballance}.` });
+};
+
+module.exports = { getAll, transaction };

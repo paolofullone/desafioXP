@@ -15,4 +15,9 @@ const getByEmailAndPassword = async (email, password) => {
   return generateJWTToken(email);
 };
 
-module.exports = { getAll, getByEmailAndPassword };
+const transaction = async (email, amount, route) => {
+  const ballance = await usersModel.transaction(email, amount, route);
+  return ballance;
+};
+
+module.exports = { getAll, getByEmailAndPassword, transaction };

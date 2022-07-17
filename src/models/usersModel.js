@@ -30,6 +30,18 @@ const updateBallance = async (userId, route, requestedOperations) => {
   return updatedUser;
 };
 
+const transaction = async (email, amount, route) => {
+  const [user] = await getByEmail(email);
+  const userId = user.user_id;
+  const typeOperation = route === '/withdraw' ? '-' : '+';
+  const transactionValue = typeOperation === '-' ? -amount : +amount;
+  await connection.execute(
+    'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
+    [transactionValue, userId],
+  );
+  return user.ballance;
+};
+
 module.exports = {
-  getAll, getByEmail, getByEmailAndPassword, updateBallance,
+  getAll, getByEmail, getByEmailAndPassword, updateBallance, transaction,
 };
