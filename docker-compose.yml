@@ -14,7 +14,7 @@ services:
     # Substitui o comando padrão da imagem do node
     # command: bash
 
-    # Comando sugerido pelo Asafe Dainez para subir o container populando o banco de uma vez. Para ver os logs digite no bash: docker logs -f nome_do_container
+    # Para ver os logs digite no bash: docker logs -f desafio_xp
     command: bash -c 'npm run dev'
 
     # Restarta a imagem caso algo a faça parar
