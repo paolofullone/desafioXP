@@ -22,4 +22,18 @@ const update = async (stock, route) => {
   return updatedStock;
 };
 
-module.exports = { getAll, getById, update };
+const create = async (stock, stockId) => {
+  const {
+    quantity, value, ticker, name,
+  } = stock;
+  await connection.execute(
+    'INSERT INTO stocks (stock_id, quantity, value, ticker, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [stockId, quantity, value, ticker, name, new Date(), new Date()],
+  );
+  const stockCreated = await getById(stockId);
+  return stockCreated;
+};
+
+module.exports = {
+  getAll, getById, update, create,
+};
