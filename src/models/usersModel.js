@@ -3,6 +3,7 @@ const { totalOperationValue } = require('../utils/totalOpValue');
 const stocksModel = require('./stocksModel');
 
 const getByEmail = async (email) => {
+  // console.log(email);
   const [user] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
   return user;
 };
@@ -28,11 +29,11 @@ const updateBallance = async (userId, route, requestedOperations) => {
   const stocks = await stocksModel.getAll();
   const totalValue = totalOperationValue(requestedOperations, stocks);
   const buyOrSellValue = operationType === '-' ? -totalValue : +totalValue;
-  const [updatedUser] = await connection.execute(
+  const result = await connection.execute(
     'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
     [buyOrSellValue, userId],
   );
-  return updatedUser;
+  return result;
 };
 
 const transaction = async (email, amount, route) => {
