@@ -9,8 +9,8 @@ CREATE TABLE
         `user_id` VARCHAR(255) PRIMARY KEY,
         `email` VARCHAR(255) NOT NULL UNIQUE,
         `password` VARCHAR(255) NOT NULL,
-        `user_name` VARCHAR(255) NOT NULL,
-        `account_balance` DECIMAL(8, 2) NOT NULL,
+        `name` VARCHAR(255) NOT NULL,
+        `ballance` DECIMAL(8, 2) NOT NULL,
         `role` VARCHAR(255) NOT NULL,
         `created_at` DATETIME,
         `updated_at` DATETIME
@@ -44,8 +44,8 @@ INSERT INTO
         `user_id`,
         `email`,
         `password`,
-        `user_name`,
-        `account_balance`,
+        `name`,
+        `ballance`,
         `role`,
         `created_at`,
         `updated_at`
