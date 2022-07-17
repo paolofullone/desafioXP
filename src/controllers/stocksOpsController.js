@@ -15,8 +15,8 @@ const create = async (req, res) => {
   const { email } = res.user;
   const route = req.route.path;
   const requestedOperations = req.body;
-  const stock = await stocksOpsService.create(email, requestedOperations, route);
-  return res.status(201).json(stock);
+  await stocksOpsService.create(email, requestedOperations, route);
+  return res.status(201).json({ message: 'Operações cadastradas com sucesso.' });
 };
 
 module.exports = { getAll, create, getByUser };
