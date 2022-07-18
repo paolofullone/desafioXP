@@ -1,24 +1,24 @@
 const express = require('express');
 require('express-async-errors');
 require('dotenv').config();
+const swaggerUi = require('swagger-ui-express');
+const swaggerJsDoc = require('swagger-jsdoc');
 
 const cors = require('cors');
 
-const { PORT } = process.env || 3000;
+const routes = require('./src/routes');
+const swaggerConfig = require('./src/docs/swaggerConfig');
 
-const usersRouter = require('./src/routes/usersRouter');
-const stocksRouter = require('./src/routes/stocksRouter');
-const stocksOpsRouter = require('./src/routes/StocksOpsRouter');
-const loginRouter = require('./src/routes/loginRouter');
+const { PORT } = process.env || 3000;
 
 const app = express();
 app.use(express.json());
 app.use(cors());
 
-app.use('/users', usersRouter);
-app.use('/stocks', stocksRouter);
-app.use('/stocksOperations', stocksOpsRouter);
-app.use('/login', loginRouter);
+const swaggerDocs = swaggerJsDoc(swaggerConfig);
+
+app.use('/', routes);
+app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // hello world
 app.get('/', (_req, res) => {
