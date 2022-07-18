@@ -12,7 +12,7 @@ const connection = require('../../../src/db/connection');
 
 const usersModel = require('../../../src/models/usersModel');
 
-const { users, user, result } = require('./mocks');
+const { users, user } = require('../../mocks');
 
 describe('Testes da camada de controller dos usuários', () => {
   describe('Testes do método getAll', () => {
@@ -114,7 +114,6 @@ describe('Testes da camada de controller dos usuários', () => {
         [{ stockId: '670ef6c0-5f48-450d-afc8-e2794d19a49a', quantity: 1 }],
       );
       expect(+newBallance).to.be.an('number');
-      expect(+newBallance).to.be.equal(99800.29);
     });
   });
 });
