@@ -49,7 +49,7 @@ const user = [{
   email: 'paolo@xpinc.com',
   password: '123456',
   user_name: 'Paolo',
-  ballance: '99800.29',
+  ballance: '100000.00',
   role: 'client',
   created_at: '2022-07-17T17:19:16.000Z',
   updated_at: '2022-07-17T17:19:16.000Z',
