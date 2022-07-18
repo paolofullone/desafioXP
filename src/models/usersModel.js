@@ -49,7 +49,8 @@ const transaction = async (email, amount, route) => {
   return updatedUser[0].ballance;
 };
 
-const create = async (userId, user, role = 'client') => {
+const create = async (userId, user) => {
+  const role = 'client';
   const {
     email, password, userName, ballance,
   } = user;
