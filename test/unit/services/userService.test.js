@@ -1,6 +1,8 @@
 const sinon = require('sinon');
 const chai = require('chai');
 
+const { v4: uuidv4 } = require('uuid');
+
 const { expect } = chai;
 chai.use(require('chai-as-promised'));
 
@@ -11,6 +13,7 @@ const {
 const connection = require('../../../src/db/connection');
 const usersModel = require('../../../src/models/usersModel');
 const usersService = require('../../../src/services/usersServices');
+// const validateAdmin = require('../../../src/middleware/validateAdmin');
 
 const { users, user } = require('../../mocks');
 
@@ -76,6 +79,33 @@ describe('Testes da camada de service dos usuários', () => {
     it('Deve retornar o saldo atualizado', async () => {
       const ballance = await usersService.transaction('paolo@xpinc.com', 100000, '/deposit');
       expect(+ballance).to.be.an('number');
+    });
+  });
+  describe('Teste do método create', () => {
+    const inputUser = {
+      email: 'paolo.enrico@gmail.com',
+      password: 123456,
+      userName: 'Paolo',
+      ballance: 65478,
+    };
+    // email, password, userName, ballance,
+    beforeEach(async () => {
+      sinon.stub(usersModel, 'create').resolves([user]);
+      // sinon.stub(validateAdmin).resolves(true);
+      // sinon.stub(uuidv4).resolves('cabfd67e-15e9-4e08-a8ad-0c65f5ed717a');
+    });
+    afterEach(() => {
+      // connection.execute.restore();
+      usersModel.create.restore();
+      // validateAdmin.restore();
+      // uuidv4.restore();
+    });
+    it('Deve retornar o user criado', async () => {
+      const userId = uuidv4();
+      const [newUser] = await usersModel.create(userId, inputUser);
+      expect(newUser).to.be.an('array');
+      expect(newUser[0].user_name).to.be.equal('Paolo');
+      expect(newUser[0].email).to.be.equal('paolo@xpinc.com');
     });
   });
 });
