@@ -195,17 +195,10 @@ const app = express();
 /**
  * @swagger
  * /users/ballance:
- *  post:
+ *  get:
  *    tags:
  *     - UserAccount
  *    description: Realiza uma consulta no saldo da conta da pessoa usuária.
- *    requestBody:
- *      required: true
- *      content:
- *        application/json:
- *          schema:
- *            type: object
- *            $ref: '#/components/schemas/UserAccount'
  *    security:
  *     - bearerAuth: []
  *    responses:
