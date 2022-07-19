@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "dockerlogs": "docker logs -f desafio_xp",
     "lint": "eslint --no-inline-config --ext .js,.jsx --no-error-on-unmatched-pattern -c .eslintrc.js .",
-    "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/**/*.js --exit"
+    "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/**/*.js --exit",
+    "deploy": "git commit --allow-empty -m 'deploy' && git push heroku main"
   },
   "repository": {
     "type": "git",

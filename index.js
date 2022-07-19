@@ -22,7 +22,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // hello world
 app.get('/', (_req, res) => {
-  res.send(`<h1>Olá pessoal, página do Paolo Fullone para o desafio da XP Inc. rodando na porta: ${PORT}.<br>`
+  res.send('<h1>Olá pessoal, página do Paolo Fullone para o desafio da XP Inc. em Julho/Agosto 2022.<br>'
+    + `Servidor executando na porta: ${PORT}.<br>`
     + 'Acesse aqui o <a href="/docs"> Swagger.</a></h1>');
 });
 

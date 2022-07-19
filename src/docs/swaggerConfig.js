@@ -6,7 +6,7 @@ const swaggerConfig = {
       description: 'API para o Desafio XP - Backend',
       version: '1.0.0',
     },
-    servers: [{ url: 'https://desafioxp.herokuapp.com/', description: 'Servidor Heroku' }, { url: 'http://localhost:3000', description: 'Servidor Local' }],
+    servers: [{ url: 'https://desafioxp.herokuapp.com', description: 'Servidor Heroku' }, { url: 'http://localhost:3000', description: 'Servidor Local' }],
     components: {
       securitySchemes: {
         bearerAuth: {
