@@ -22,7 +22,8 @@ app.use('/docs', swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 // hello world
 app.get('/', (_req, res) => {
-  res.send(`Hello World!!! Running on Heroku Port: ${PORT}`);
+  res.send(`<h1>Olá pessoal, página do Paolo Fullone para o desafio da XP Inc. rodando na porta: ${PORT}.`
+    + ' Para acessar o swagger acesse: /docs</h1>');
 });
 
 app.use((err, _req, res, next) => {

@@ -6,9 +6,20 @@ const swaggerConfig = {
       description: 'API para o Desafio XP - Backend',
       version: '1.0.0',
     },
-    server: [{ url: 'http://localhost:3000', description: 'Servidor Local' }, { url: 'https://desafioxp.herokuapp.com/', description: 'Servidor Heroku' }],
+    servers: [{ url: 'http://localhost:3000', description: 'Servidor Local' }, { url: 'https://desafioxp.herokuapp.com/', description: 'Servidor Heroku' }],
+    components: {
+      securitySchemes: {
+        bearerAuth: {
+          name: 'Authorization',
+          in: 'header',
+          type: 'apiKey',
+          description: 'JWT Authorization',
+          scheme: 'bearer',
+        },
+      },
+    },
   },
-  apis: ['./src/routes/index.js'],
+  apis: ['./src/routes/*.js'],
 };
 
 module.exports = swaggerConfig;
