@@ -70,6 +70,38 @@ const app = express();
  *        type: object
  *        example:
  *         message: 'Saldo atual 1.0000.00.'
+ *    Stocks:
+ *        type: object
+ *        example:
+ *         stock_id: '670ef6c0-5f48-450d-afc8-e2794d19a49a'
+ *         available_quantity: '100000.00'
+ *         value: '829.00'
+ *         ticker: 'XPINC'
+ *         name: 'XP Inc'
+ *         created_at: '2022-07-17T17:19:16.000Z'
+ *         updated_at: '2022-07-17T17:19:16.000Z'
+ *    StocksRequest:
+ *        type: object
+ *        required:
+ *         - name
+ *         - ticker
+ *         - value
+ *         - availableQuantity
+ *        properties:
+ *         name:
+ *          type: string
+ *         ticker:
+ *          type: string
+ *         value:
+ *          type: number
+ *         availableQuantity:
+ *          type: number
+ *        example:
+ *         name: 'XP Inc'
+ *         ticker: 'XPINC'
+ *         value: 345.00
+ *         availableQuantity: 100000.00
+ *
  */
 
 /**
@@ -77,7 +109,7 @@ const app = express();
  *  /login:
  *    post:
  *      tags: [Login]
- *      description: Endpoint para fazer login.
+ *      description: Endpoint para fazer login na aplicação.
  *      requestBody:
  *        required: true
  *        content:
@@ -120,7 +152,7 @@ const app = express();
  *  post:
  *    tags:
  *     - Users
- *    description: Cria um usário.
+ *    description: Cria uma pessoa usuária na aplicação.
  *    requestBody:
  *      required: true
  *      content:
@@ -146,7 +178,7 @@ const app = express();
  *  post:
  *    tags:
  *     - UserAccount
- *    description: Realiza um depósito na conta de um usuário.
+ *    description: Realiza um depósito na conta de uma pessoa usuária.
  *    requestBody:
  *      required: true
  *      content:
@@ -172,7 +204,7 @@ const app = express();
  *  post:
  *    tags:
  *     - UserAccount
- *    description: Realiza um saque na conta de um usuário.
+ *    description: Realiza um saque na conta de uma pessoa usuária.
  *    requestBody:
  *      required: true
  *      content:
@@ -210,6 +242,75 @@ const app = express();
  *              items:
  *                $ref: '#/components/schemas/UserBallance'
 */
+
+/**
+ * @swagger
+ * /stocks:
+ *  get:
+ *    tags:
+ *     - Stocks
+ *    description: Consulta de todas as ações cadastradas no Banco de Dados.
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Stocks'
+*/
+
+/**
+ * @swagger
+ * /stocks/{id}:
+ *  get:
+ *    tags:
+ *     - Stocks
+ *    description: Consulta de uma ação no banco de dados.
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Stocks'
+*/
+
+/**
+ * @swagger
+ * /stocks:
+ *  post:
+ *    tags:
+ *     - Stocks
+ *    description: Cria uma nova ação no BD.
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            $ref: '#/components/schemas/StocksRequest'
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/Stocks'
+ */
 
 const usersRouter = require('./usersRouter');
 const stocksRouter = require('./stocksRouter');

@@ -9,7 +9,7 @@ const getAll = async (_req, res) => {
 const getBallance = async (req, res) => {
   const { email } = res.user;
   const ballance = await usersServices.getBallance(email);
-  return res.status(200).json({ message: `Saldo atual ${ballance}.` });
+  return res.status(200).json({ message: `Saldo atual ${ballance.toLocaleString('pt-BR')}.` });
 };
 
 const transaction = async (req, res) => {

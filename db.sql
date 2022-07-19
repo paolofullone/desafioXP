@@ -19,7 +19,7 @@ CREATE TABLE
 CREATE TABLE
     `stocks`(
         `stock_id` VARCHAR(255) PRIMARY KEY,
-        `quantity` INT NOT NULL,
+        `available_quantity` INT NOT NULL,
         `value` DECIMAL(8, 2) NOT NULL,
         `ticker` VARCHAR(255) NOT NULL UNIQUE,
         `name` VARCHAR(255) NULL,
@@ -56,7 +56,7 @@ VALUES (
         '@PaoloNaXPInc2022',
         'Paolo',
         '100000.00',
-        'adnin',
+        'admin',
         NOW(),
         NOW()
     ), (
@@ -82,7 +82,7 @@ VALUES (
 INSERT INTO
     `stocks` (
         `stock_id`,
-        `quantity`,
+        `available_quantity`,
         `value`,
         `ticker`,
         `name`,
@@ -91,18 +91,18 @@ INSERT INTO
     )
 VALUES (
         '670ef6c0-5f48-450d-afc8-e2794d19a49a',
-        '9800',
+        '98000',
         '10.00',
-        'PETR4',
-        'PETROBRAS => PAOLO',
+        'XPINC',
+        'XP INC.',
         NOW(),
         NOW()
     ), (
         '3f335ba1-5f8a-4b50-b309-3bdcfffb3040',
-        '9900',
+        '99000',
         '10.00',
         'VALE5',
-        'VALE => LUCA',
+        'VALE',
         NOW(),
         NOW()
     );

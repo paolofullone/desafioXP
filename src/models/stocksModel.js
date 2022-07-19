@@ -23,13 +23,15 @@ const update = async (stock, route) => {
 };
 
 const create = async (stock, stockId) => {
+  console.log(stock);
   const {
-    quantity, value, ticker, name,
+    availableQuantity, value, ticker, name,
   } = stock;
   await connection.execute(
-    'INSERT INTO stocks (stock_id, quantity, value, ticker, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
-    [stockId, quantity, value, ticker, name, new Date(), new Date()],
+    'INSERT INTO stocks (stock_id, available_quantity, value, ticker, name, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?)',
+    [stockId, availableQuantity, value, ticker, name, new Date(), new Date()],
   );
+
   const stockCreated = await getById(stockId);
   return stockCreated;
 };
