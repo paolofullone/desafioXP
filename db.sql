@@ -53,10 +53,10 @@ INSERT INTO
 VALUES (
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
         'paolo@xpinc.com',
-        '123456',
+        '@PaoloNaXPInc2022',
         'Paolo',
         '100000.00',
-        'client',
+        'adnin',
         NOW(),
         NOW()
     ), (
