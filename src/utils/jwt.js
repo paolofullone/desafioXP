@@ -10,7 +10,7 @@ const generateJWTToken = (email) => jwt.sign({ email }, JWT_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
   if (!token) {
-    const error = { status: 401, message: 'Token not found' };
+    const error = { status: 401, message: 'Token não encontrado.' };
     throw error;
   }
   try {
