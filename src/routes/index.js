@@ -21,6 +21,19 @@ const app = express();
  *        example:
  *         email: 'paolo@xpinc.com'
  *         password: '@PaoloNaXPInc2022'
+ *    LoginClient:
+ *        type: object
+ *        required:
+ *         - email
+ *         - password
+ *        properties:
+ *         email:
+ *          type: string
+ *         password:
+ *          type: string
+ *        example:
+ *         email: 'luca@xpinc.com'
+ *         password: '@PaoloNaXPInc2022'
  *    User:
  *        type: object
  *        required:
@@ -101,7 +114,15 @@ const app = express();
  *         ticker: 'XPINC'
  *         value: 345.00
  *         availableQuantity: 100000.00
- *    Wallet:
+ *    WalletResponse:
+ *        type: object
+ *        example:
+ *         op_id: 'a3e53067-142b-4b9a-aae7-ebb79e42a4a0'
+ *         user_id: 'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a'
+ *         stock_id: '670ef6c0-5f48-450d-afc8-e2794d19a49a'
+ *         amount: '100000.00'
+ *         created_at: '2022-07-17T17:19:16.000Z'
+ *         updated_at: '2022-07-17T17:19:16.000Z'
  *
  */
 
@@ -139,8 +160,7 @@ const app = express();
  *  get:
  *    tags:
  *     - Users
- *    description: Retorna os dados da pessoa usuária, caso seja admin, retorna todos os
- *     dados de todas as pessoas usuárias.
+ *    description: Retorna os dados de todas as pessoas usuárias (requer admin).
  *    security:
  *      - bearerAuth: []
  *    responses:
@@ -155,6 +175,8 @@ const app = express();
  *        description: Faltam campos exigidos para a requisição.
  *      401:
  *        description: Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
  *      500:
  *        description: Erro interno.
 */
@@ -165,7 +187,7 @@ const app = express();
  *  post:
  *    tags:
  *     - Users
- *    description: Cria uma pessoa usuária na aplicação.
+ *    description: Cria uma pessoa usuária na aplicação (requer admin).
  *    requestBody:
  *      required: true
  *      content:
@@ -187,6 +209,8 @@ const app = express();
  *        description: Faltam campos exigidos para a requisição.
  *      401:
  *        description: JWT Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
  *      409:
  *        description: Usuário já existe.
  *      500:
@@ -199,7 +223,7 @@ const app = express();
  *  post:
  *    tags:
  *     - UserAccount
- *    description: Realiza um depósito na conta de uma pessoa usuária.
+ *    description: Realiza um depósito na conta da pessoa usuária logada.
  *    requestBody:
  *      required: true
  *      content:
@@ -232,7 +256,7 @@ const app = express();
  *  post:
  *    tags:
  *     - UserAccount
- *    description: Realiza um saque na conta de uma pessoa usuária.
+ *    description: Realiza um saque na conta da pessoa usuária logada.
  *    requestBody:
  *      required: true
  *      content:
@@ -265,7 +289,7 @@ const app = express();
  *  get:
  *    tags:
  *     - UserAccount
- *    description: Realiza uma consulta no saldo da conta da pessoa usuária.
+ *    description: Realiza uma consulta no saldo da conta da pessoa usuária logada.
  *    security:
  *     - bearerAuth: []
  *    responses:
@@ -288,7 +312,7 @@ const app = express();
  *  get:
  *    tags:
  *     - Stocks
- *    description: Consulta de todas as ações cadastradas no Banco de Dados.
+ *    description: Consulta de todas as ações cadastradas no Banco de Dados (requer admin).
  *    security:
  *     - bearerAuth: []
  *    responses:
@@ -301,6 +325,8 @@ const app = express();
  *                $ref: '#/components/schemas/Stocks'
  *      401:
  *        description: JWT Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
  *      500:
  *        description: Erro interno.
 */
@@ -341,7 +367,7 @@ const app = express();
  *  post:
  *    tags:
  *     - Stocks
- *    description: Cria uma nova ação no BD.
+ *    description: Cria uma nova ação no BD (requer admin).
  *    requestBody:
  *      required: true
  *      content:
@@ -363,11 +389,68 @@ const app = express();
  *        description: Faltam campos exigidos para a requisição.
  *      401:
  *        description: JWT Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
  *      409:
  *        description: Ação já existe.
  *      500:
  *        description: Erro interno.
  */
+
+/**
+ * @swagger
+ * /stocksOperations:
+ *  get:
+ *    tags:
+ *     - Wallet
+ *    description: Retorna todas as operações de todas as pessoas usuárias. (requer admin).
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/WalletResponse'
+ *      401:
+ *        description: Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
+ *      500:
+ *        description: Erro interno.
+*/
+
+/**
+ * @swagger
+ * /stocksOperations/{id}:
+ *  get:
+ *    tags:
+ *     - Wallet
+ *    description: Retorna todas as operações da pessoa usuária logada.
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/WalletResponse'
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      404:
+ *        description: Ação não encontrada.
+ *      500:
+ *        description: Erro interno.
+*/
 
 const usersRouter = require('./usersRouter');
 const stocksRouter = require('./stocksRouter');
