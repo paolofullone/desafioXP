@@ -54,10 +54,11 @@ const create = async (userId, user) => {
   const {
     email, password, userName, ballance,
   } = user;
-  await connection.execute(
+  const createUser = await connection.execute(
     'INSERT INTO users (user_id, email, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     [userId, email, password, userName, ballance, role, new Date(), new Date()],
   );
+  console.log(createUser);
   const newUser = await getByEmail(email);
   return newUser;
 };

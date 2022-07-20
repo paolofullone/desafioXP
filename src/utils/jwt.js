@@ -10,14 +10,14 @@ const generateJWTToken = (email) => jwt.sign({ email }, JWT_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
   if (!token) {
-    const error = { status: 401, message: 'Token não encontrado.' };
+    const error = { status: 400, message: 'Token não encontrado.' };
     throw error;
   }
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     return decoded;
   } catch (error) {
-    const err = { status: 401, message: 'Expired or invalid token' };
+    const err = { status: 401, message: 'Token expirado ou inválido' };
     throw err;
   }
 };

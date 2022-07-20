@@ -101,6 +101,7 @@ const app = express();
  *         ticker: 'XPINC'
  *         value: 345.00
  *         availableQuantity: 100000.00
+ *    Wallet:
  *
  */
 
@@ -124,6 +125,12 @@ const app = express();
  *              schema:
  *                type: object
  *                $ref: '#/components/schemas/Login'
+ *        400:
+ *          description: Erro ao fazer login. Faltam campo email e/ou senha.
+ *        401:
+ *          description: Usuário não encontrado com as credenciais informadas.
+ *        500:
+ *          description: Erro interno.
  */
 
 /**
@@ -144,6 +151,12 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/User'
+ *      400:
+ *        description: Faltam campos exigidos para a requisição.
+ *      401:
+ *        description: Token expirado ou inválido.
+ *      500:
+ *        description: Erro interno.
 */
 
 /**
@@ -170,6 +183,14 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/UserResponse'
+ *      400:
+ *        description: Faltam campos exigidos para a requisição.
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      409:
+ *        description: Usuário já existe.
+ *      500:
+ *        description: Erro interno.
 */
 
 /**

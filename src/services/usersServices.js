@@ -11,7 +11,7 @@ const getAll = async (email) => {
 const getByEmailAndPassword = async (email, password) => {
   const client = await usersModel.getByEmailAndPassword(email, password);
   if (!client.length) {
-    const error = { status: 400, message: 'Email ou senha inválido(s).' };
+    const error = { status: 401, message: 'Usuário não encontrado, favor verificar email e senha informados.' };
     throw error;
   }
   return generateJWTToken(email);
@@ -30,8 +30,13 @@ const transaction = async (email, amount, route) => {
 const create = async (user, email) => {
   await validateAdmin(email);
   const userId = uuidv4();
-  const newUser = await usersModel.create(userId, user);
-  return newUser;
+  try {
+    const newUser = await usersModel.create(userId, user);
+    return newUser;
+  } catch (error) {
+    const err = { status: 409, message: 'Usuário já existe no banco de dados.' };
+    throw err;
+  }
 };
 
 module.exports = {
