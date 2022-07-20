@@ -5,13 +5,13 @@ const stocksOpsModel = require('../models/stocksOpsModel');
 const stocksModel = require('../models/stocksModel');
 const usersModel = require('../models/usersModel');
 
-const getAll = async (email) => {
-  const stocksOps = await stocksOpsModel.getAll(email);
+const getAll = async () => {
+  const stocksOps = await stocksOpsModel.getAll();
   return stocksOps;
 };
 
-const getByUser = async (email) => {
-  const stocksOps = await stocksOpsModel.getByUser(email);
+const getByUserId = async (userId) => {
+  const stocksOps = await stocksOpsModel.getByUserId(userId);
   const wallet = userWallet(stocksOps);
   return wallet;
 };
@@ -19,7 +19,7 @@ const getByUser = async (email) => {
 const createOperations = (requestedOperations, userId, route) => {
   requestedOperations.forEach(async (operation) => {
     const opId = uuidv4();
-    await stocksOpsModel.create(opId, userId[0].user_id, operation, route);
+    await stocksOpsModel.create(opId, userId, operation, route);
   });
 };
 
@@ -29,12 +29,11 @@ const updateStocks = async (requestedOperations, route) => {
   });
 };
 
-const create = async (email, requestedOperations, route) => {
-  const userId = await usersModel.getByEmail(email);
+const create = async (userId, requestedOperations, route) => {
   createOperations(requestedOperations, userId, route);
   updateStocks(requestedOperations, route);
-  await usersModel.updateBallance(userId[0].user_id, route, requestedOperations);
+  await usersModel.updateBallance(userId, route, requestedOperations);
   return requestedOperations;
 };
 
-module.exports = { getAll, create, getByUser };
+module.exports = { getAll, create, getByUserId };

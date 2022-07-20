@@ -3,7 +3,6 @@ const { totalOperationValue } = require('../utils/totalOpValue');
 const stocksModel = require('./stocksModel');
 
 const getByEmail = async (email) => {
-  // console.log(email);
   const [user] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
   return user;
 };
@@ -54,11 +53,10 @@ const create = async (userId, user) => {
   const {
     email, password, userName, ballance,
   } = user;
-  const createUser = await connection.execute(
+  await connection.execute(
     'INSERT INTO users (user_id, email, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
     [userId, email, password, userName, ballance, role, new Date(), new Date()],
   );
-  console.log(createUser);
   const newUser = await getByEmail(email);
   return newUser;
 };

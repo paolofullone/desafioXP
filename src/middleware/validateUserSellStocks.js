@@ -4,8 +4,8 @@ const { userWallet } = require('../utils/userWallet');
 
 const validateUserSellStocks = async (req, res, next) => {
   const requestedOperations = req.body;
-  const { email } = res.user;
-  const stocksOps = await stocksOpsModel.getByUser(email);
+  const { userId } = res.user;
+  const stocksOps = await stocksOpsModel.getByUserId(userId);
   const wallet = await userWallet(stocksOps);
   const promises = requestedOperations.map(async (operation) => {
     const { stockId, quantity } = operation;
@@ -15,7 +15,7 @@ const validateUserSellStocks = async (req, res, next) => {
       throw error;
     }
     const validStock = wallet.find((s) => s.stock_id === stockId);
-    if (!validStock.length) {
+    if (!validStock) {
       const error = { status: 400, message: `Ação ${operation.stockId} não encontrada na carteira` };
       throw error;
     }

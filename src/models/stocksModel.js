@@ -16,14 +16,13 @@ const update = async (stock, route) => {
   let { quantity } = stock;
   quantity = operation === '-' ? -quantity : +quantity;
   const [updatedStock] = await connection.execute(
-    'UPDATE stocks SET quantity = quantity + ? WHERE stock_id = ?',
+    'UPDATE stocks SET available_quantity = available_quantity + ? WHERE stock_id = ?',
     [quantity, stockId],
   );
   return updatedStock;
 };
 
 const create = async (stock, stockId) => {
-  console.log(stock);
   const {
     availableQuantity, value, ticker, name,
   } = stock;

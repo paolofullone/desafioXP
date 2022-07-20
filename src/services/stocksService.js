@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const validateAdmin = require('../middleware/validateAdmin');
+// const validateAdmin = require('../middleware/validateAdmin');
 
 const stocksModel = require('../models/stocksModel');
 
@@ -17,8 +17,8 @@ const getById = async (id) => {
   return stock;
 };
 
-const create = async (stock, email) => {
-  await validateAdmin(email);
+const create = async (stock) => {
+  // await validateAdmin(email);
   const stockId = uuidv4();
   try {
     const newStock = await stocksModel.create(stock, stockId);

@@ -1,5 +1,5 @@
 const { v4: uuidv4 } = require('uuid');
-const validateAdmin = require('../middleware/validateAdmin');
+// const validateAdmin = require('../middleware/validateAdmin');
 const usersModel = require('../models/usersModel');
 const { generateJWTToken } = require('../utils/jwt');
 
@@ -14,7 +14,8 @@ const getByEmailAndPassword = async (email, password) => {
     const error = { status: 401, message: 'Usuário não encontrado, favor verificar email e senha informados.' };
     throw error;
   }
-  return generateJWTToken(email);
+  const userId = client[0].user_id;
+  return generateJWTToken(email, userId);
 };
 
 const getBallance = async (email) => {
@@ -27,8 +28,8 @@ const transaction = async (email, amount, route) => {
   return ballance;
 };
 
-const create = async (user, email) => {
-  await validateAdmin(email);
+const create = async (user) => {
+  // await validateAdmin(email);
   const userId = uuidv4();
   try {
     const newUser = await usersModel.create(userId, user);

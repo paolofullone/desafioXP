@@ -6,7 +6,7 @@ const jwtConfig = {
   expiresIn: '14400m',
   algorithm: 'HS256',
 };
-const generateJWTToken = (email) => jwt.sign({ email }, JWT_SECRET, jwtConfig);
+const generateJWTToken = (email, userId) => jwt.sign({ email, userId }, JWT_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
   if (!token) {
