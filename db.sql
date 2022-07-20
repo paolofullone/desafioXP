@@ -98,6 +98,15 @@ VALUES (
         NOW(),
         NOW()
     ), (
+      'fe1f3d59-0dde-4b55-af4f-788bd8f7dd9e',
+      '98000',
+      '10.00',
+      'GGBR4',
+      'GERDAU',
+      NOW(),
+      NOW()
+    ),    
+    (
         '3f335ba1-5f8a-4b50-b309-3bdcfffb3040',
         '99000',
         '10.00',
