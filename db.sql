@@ -56,7 +56,7 @@ VALUES (
         '@PaoloNaXPInc2022',
         'Paolo',
         '100000.00',
-        'admin',
+        'client',
         NOW(),
         NOW()
     ), (
@@ -98,15 +98,14 @@ VALUES (
         NOW(),
         NOW()
     ), (
-      'fe1f3d59-0dde-4b55-af4f-788bd8f7dd9e',
-      '98000',
-      '10.00',
-      'GGBR4',
-      'GERDAU',
-      NOW(),
-      NOW()
-    ),    
-    (
+        'fe1f3d59-0dde-4b55-af4f-788bd8f7dd9e',
+        '98000',
+        '10.00',
+        'GGBR4',
+        'GERDAU',
+        NOW(),
+        NOW()
+    ), (
         '3f335ba1-5f8a-4b50-b309-3bdcfffb3040',
         '99000',
         '10.00',
@@ -130,6 +129,15 @@ INSERT INTO
 VALUES (
         'a3e53067-142b-4b9a-aae7-ebb79e42a4a0',
         '670ef6c0-5f48-450d-afc8-e2794d19a49a',
+        'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
+        '200',
+        '100.00',
+        'buy',
+        NOW(),
+        NOW()
+    ), (
+        '4b973e5c-c538-4a25-b21f-f2ce69a7a2b7',
+        '3f335ba1-5f8a-4b50-b309-3bdcfffb3040',
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
         '200',
         '100.00',
