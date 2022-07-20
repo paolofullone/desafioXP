@@ -10,14 +10,23 @@ const getAll = async () => {
 
 const getById = async (id) => {
   const stock = await stocksModel.getById(id);
+  if (!stock.length) {
+    const error = { status: 404, message: 'Ação não encontrada.' };
+    throw error;
+  }
   return stock;
 };
 
 const create = async (stock, email) => {
   await validateAdmin(email);
   const stockId = uuidv4();
-  const newStock = await stocksModel.create(stock, stockId);
-  return newStock;
+  try {
+    const newStock = await stocksModel.create(stock, stockId);
+    return newStock;
+  } catch (error) {
+    const err = { status: 409, message: 'Erro ao criar ação ou ação existente' };
+    throw err;
+  }
 };
 
 module.exports = { getAll, getById, create };
