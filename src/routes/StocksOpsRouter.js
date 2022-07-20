@@ -8,9 +8,10 @@ const validateStocks = require('../middleware/validateStocks');
 const validateSell = require('../middleware/validateSell');
 const validateBallance = require('../middleware/validateBallance');
 const validateUserSellStocks = require('../middleware/validateUserSellStocks');
+const validateAdmin = require('../middleware/validateAdmin');
 
-router.get('/', validateAuth, stocksOpsController.getAll);
-router.get('/:id', validateAuth, stocksOpsController.getByUser);
+router.get('/', validateAuth, validateAdmin, stocksOpsController.getAll);
+router.get('/:id', validateAuth, stocksOpsController.getByUserId);
 router.post('/purchase', validateAuth, validateStocks, validateBallance, stocksOpsController.create);
 router.post('/sell', validateAuth, validateSell, validateUserSellStocks, stocksOpsController.create);
 
