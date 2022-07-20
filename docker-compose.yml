@@ -37,10 +37,12 @@ services:
       - 3000:3000
     # Configura as variáveis de ambiente dentro do container
     environment:
-      MYSQL_USER: root
-      MYSQL_PASSWORD: password
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_HOST: db # Nome do service logo abaixo
-      PORT: '3000'
+      #MYSQL_HOST: {MYSQL_HOST} # ASSIM NÃO ESTÁ FUNCIONANDO NEM LOCAL
+      PORT: ${PORT}
+      JWT_SECRET: ${JWT_SECRET}
 
   # Serviço que irá rodar o banco de dados
   db:
