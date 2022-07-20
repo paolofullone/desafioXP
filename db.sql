@@ -62,7 +62,7 @@ VALUES (
     ), (
         '4907c20d-4d8e-4714-a8d2-fc9138602f80',
         'luca@xpinc.com',
-        '123456',
+        '@PaoloNaXPInc2022',
         'Luca',
         '100000.00',
         'client',
