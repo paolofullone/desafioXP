@@ -217,6 +217,13 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/UserAccountResponse'
+ *      400:
+ *        description: Faltam campos exigidos para a requisição.
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      500:
+ *        description: Erro interno.
+ *
 */
 
 /**
@@ -243,6 +250,13 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/UserAccountResponse'
+ *      400:
+ *        description: Faltam campos exigidos para a requisição
+ *          ou valor da retirada superior ao saldo da conta.
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      500:
+ *        description: Erro interno.
 */
 
 /**
@@ -262,6 +276,10 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/UserBallance'
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      500:
+ *        description: Erro interno.
 */
 
 /**
@@ -281,6 +299,10 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/Stocks'
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      500:
+ *        description: Erro interno.
 */
 
 /**
@@ -305,6 +327,12 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/Stocks'
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      404:
+ *        description: Ação não encontrada.
+ *      500:
+ *        description: Erro interno.
 */
 
 /**
@@ -331,6 +359,14 @@ const app = express();
  *              type: array
  *              items:
  *                $ref: '#/components/schemas/Stocks'
+ *      400:
+ *        description: Faltam campos exigidos para a requisição.
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      409:
+ *        description: Ação já existe.
+ *      500:
+ *        description: Erro interno.
  */
 
 const usersRouter = require('./usersRouter');
