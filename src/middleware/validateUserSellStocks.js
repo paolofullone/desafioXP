@@ -10,12 +10,12 @@ const validateUserSellStocks = async (req, res, next) => {
   const promises = requestedOperations.map(async (operation) => {
     const { stockId, quantity } = operation;
     const stock = await stocksModel.getById(stockId);
-    if (!stock) {
+    if (!stock.length) {
       const error = { status: 400, message: `Ação ${operation.stockId} não encontrada na corretora.` };
       throw error;
     }
     const validStock = wallet.find((s) => s.stock_id === stockId);
-    if (!validStock) {
+    if (!validStock.length) {
       const error = { status: 400, message: `Ação ${operation.stockId} não encontrada na carteira` };
       throw error;
     }
