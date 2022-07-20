@@ -10,7 +10,7 @@ CREATE TABLE
         `email` VARCHAR(255) NOT NULL UNIQUE,
         `password` VARCHAR(255) NOT NULL,
         `name` VARCHAR(255) NOT NULL,
-        `ballance` DECIMAL(8, 2) NOT NULL,
+        `ballance` DECIMAL(19, 4) NOT NULL,
         `role` VARCHAR(255) NOT NULL,
         `created_at` DATETIME,
         `updated_at` DATETIME
@@ -20,7 +20,7 @@ CREATE TABLE
     `stocks`(
         `stock_id` VARCHAR(255) PRIMARY KEY,
         `available_quantity` INT NOT NULL,
-        `value` DECIMAL(8, 2) NOT NULL,
+        `value` DECIMAL(19, 4) NOT NULL,
         `ticker` VARCHAR(255) NOT NULL UNIQUE,
         `name` VARCHAR(255) NULL,
         `created_at` DATETIME,
@@ -33,7 +33,7 @@ CREATE TABLE
         `stock_id` VARCHAR(255),
         `user_id` VARCHAR(255),
         `quantity` INT NOT NULL,
-        `value` DECIMAL(8, 2) NOT NULL,
+        `value` DECIMAL(19, 4) NOT NULL,
         `operation` VARCHAR(255) NOT NULL,
         `created_at` DATETIME,
         `updated_at` DATETIME
