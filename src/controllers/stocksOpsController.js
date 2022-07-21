@@ -5,9 +5,9 @@ const getAll = async (_req, res) => {
   return res.status(200).json(stocks);
 };
 
-const getByUserId = async (_req, res) => {
+const getWalletByUserId = async (_req, res) => {
   const { userId } = res.user;
-  const wallet = await stocksOpsService.getByUserId(userId);
+  const wallet = await stocksOpsService.getWalletByUserId(userId);
   return res.status(200).json(wallet);
 };
 
@@ -19,4 +19,4 @@ const create = async (req, res) => {
   return res.status(201).json({ message: 'Operações cadastradas com sucesso.' });
 };
 
-module.exports = { getAll, create, getByUserId };
+module.exports = { getAll, create, getWalletByUserId };

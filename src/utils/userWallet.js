@@ -1,24 +1,29 @@
-const totalWallet = (stockOps) => stockOps.map((stockOp) => {
-  const eachStock = stockOps.filter((stock) => stock.stock_id === stockOp.stock_id);
-  const totalValue = eachStock.reduce((acc, curr) => {
-    if (curr.operation === 'buy') {
-      return acc + (curr.quantity * curr.value);
-    }
-    return acc - (curr.quantity * curr.value);
-  }, 0);
-  const totalQuantity = eachStock.reduce((acc, curr) => {
-    if (curr.operation === 'buy') {
-      return acc + curr.quantity;
-    }
-    return acc - curr.quantity;
-  }, 0);
-
-  return {
-    stock_id: stockOp.stock_id,
-    quantity: totalQuantity,
-    value: totalValue,
-  };
-});
+const totalWallet = (stockOps) => {
+  const totalOps = stockOps.map((stockOp) => {
+    const stockAvg = stockOps.filter((stock) => stock.stock_id === stockOp.stock_id);
+    const totalValue = stockAvg.reduce((acc, curr) => {
+      if (curr.operation === 'buy') {
+        return acc + (curr.quantity * curr.value);
+      }
+      return acc - (curr.quantity * curr.value);
+    }, 0);
+    const totalQuantity = stockAvg.reduce((acc, curr) => {
+      if (curr.operation === 'buy') {
+        return acc + curr.quantity;
+      }
+      return acc - curr.quantity;
+    }, 0);
+    const avgValue = totalValue / totalQuantity;
+    return {
+      stock_id: stockOp.stock_id,
+      quantity: totalQuantity,
+      // value: +stockOp.value,
+      totalValue,
+      avgValue,
+    };
+  });
+  return totalOps;
+};
 
 // pesquisei no google como retornar somente valores únicos de um array com objetos.
 // resposta veio pelo grepper, não apareceu nenhum site para referenciar.

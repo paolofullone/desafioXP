@@ -11,7 +11,7 @@ const validateUserSellStocks = require('../middleware/validateUserSellStocks');
 const validateAdmin = require('../middleware/validateAdmin');
 
 router.get('/', validateAuth, validateAdmin, stocksOpsController.getAll);
-router.get('/:id', validateAuth, stocksOpsController.getByUserId);
+router.get('/:id', validateAuth, stocksOpsController.getWalletByUserId);
 router.post('/purchase', validateAuth, validateStocks, validateBallance, stocksOpsController.create);
 router.post('/sell', validateAuth, validateSell, validateUserSellStocks, stocksOpsController.create);
 
