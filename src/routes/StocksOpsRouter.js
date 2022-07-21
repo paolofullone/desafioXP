@@ -10,9 +10,147 @@ const validateBallance = require('../middleware/validateBallance');
 const validateUserSellStocks = require('../middleware/validateUserSellStocks');
 const validateAdmin = require('../middleware/validateAdmin');
 
+/**
+ * @swagger
+ * /stocksOperations:
+ *  get:
+ *    tags:
+ *     - Wallet
+ *    description: Retorna todas as operações de todas as pessoas usuárias. (requer admin).
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/WalletResponse'
+ *      401:
+ *        description: Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
+ *      500:
+ *        description: Erro interno.
+*/
 router.get('/', validateAuth, validateAdmin, stocksOpsController.getAll);
+
+/**
+ * @swagger
+ * /stocksOperations/{id}:
+ *  get:
+ *    tags:
+ *     - Wallet
+ *    description: Retorna todas as operações da pessoa usuária logada.
+ *    parameters:
+ *      - in: path
+ *        name: id
+ *        type: string
+ *        required: true
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/WalletResponse'
+ *      401:
+ *        description: JWT Token expirado ou inválido.
+ *      404:
+ *        description: Ação não encontrada.
+ *      500:
+ *        description: Erro interno.
+*/
 router.get('/:id', validateAuth, stocksOpsController.getWalletByUserId);
+
+/**
+ * @swagger
+ * /stocksOperations/purchase:
+ *  post:
+ *    tags:
+ *     - Wallet
+ *    description: Realiza uma compra de ações da pessoa usuária logada.
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            $ref: '#/components/schemas/StockOpsPurchaseOrSale'
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/StockOpsPurchaseApproved'
+ *      400:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/StockOpsPurchaseNoFunds'
+ *      401:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/TokenExpiredOrInvalid'
+ *      500:
+ *        description: Erro interno.
+*/
 router.post('/purchase', validateAuth, validateStocks, validateBallance, stocksOpsController.create);
+
+/**
+ * @swagger
+ * /stocksOperations/sell:
+ *  post:
+ *    tags:
+ *     - Wallet
+ *    description: Realiza uma venda de ações da pessoa usuária logada.
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            $ref: '#/components/schemas/StockOpsPurchaseOrSale'
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      201:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/StockOpsApproved'
+ *      400:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/StockOpsSaleNotApproved'
+ *      401:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/TokenExpiredOrInvalid'
+ *      500:
+ *        description: Erro interno.
+*/
 router.post('/sell', validateAuth, validateSell, validateUserSellStocks, stocksOpsController.create);
 
 module.exports = router;
