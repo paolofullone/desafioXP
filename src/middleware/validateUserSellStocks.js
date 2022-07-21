@@ -5,7 +5,7 @@ const { userWallet } = require('../utils/userWallet');
 const validateUserSellStocks = async (req, res, next) => {
   const requestedOperations = req.body;
   const { userId } = res.user;
-  const stocksOps = await stocksOpsModel.getByUserId(userId);
+  const stocksOps = await stocksOpsModel.getWalletByUserId(userId);
   const wallet = await userWallet(stocksOps);
   const promises = requestedOperations.map(async (operation) => {
     const { stockId, quantity } = operation;
