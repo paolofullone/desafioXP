@@ -61,7 +61,7 @@ VALUES (
         '@PaoloNaXPInc2022',
         'Paolo',
         '100000.00',
-        'client',
+        'admin',
         NOW(),
         NOW()
     ), (
