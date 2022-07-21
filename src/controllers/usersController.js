@@ -6,6 +6,12 @@ const getAll = async (_req, res) => {
   return res.status(200).json(clients);
 };
 
+const getById = async (req, res) => {
+  const { id } = req.params;
+  const client = await usersServices.getById(id);
+  return res.status(200).json(client);
+};
+
 const getBallance = async (req, res) => {
   const { email } = res.user;
   const ballance = await usersServices.getBallance(email);
@@ -27,6 +33,19 @@ const create = async (req, res) => {
   return res.status(201).json(newUser);
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.params;
+  await usersServices.deleteUser(id);
+  return res.status(200).json({ message: 'usuário excluído com sucesso.' });
+};
+
+const updateUser = async (req, res) => {
+  const { id } = req.params;
+  const user = req.body;
+  const updatedUser = await usersServices.updateUser(id, user);
+  return res.status(200).json(updatedUser);
+};
+
 module.exports = {
-  getAll, transaction, getBallance, create,
+  getAll, getById, transaction, getBallance, create, deleteUser, updateUser,
 };

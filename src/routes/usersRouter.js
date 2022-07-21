@@ -15,5 +15,7 @@ router.post('/', validateAdmin, validateNewUser, usersController.create);
 router.post('/deposit', validateTransaction, usersController.transaction);
 router.post('/withdraw', validateTransaction, validateWithdraw, usersController.transaction);
 router.get('/ballance', usersController.getBallance);
+router.get('/:id', usersController.getAll);
+router.delete('/:id', usersController.deleteUser);
 
 module.exports = router;

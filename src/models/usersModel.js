@@ -17,6 +17,11 @@ const getAll = async (email) => {
   return users;
 };
 
+const getById = async (id) => {
+  const [user] = await connection.execute('SELECT * FROM users WHERE user_id = ?', [id]);
+  return user;
+};
+
 const getByEmailAndPassword = async (email, password) => {
   const [user] = await connection.execute('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
   // userWallet(user);
@@ -51,16 +56,41 @@ const transaction = async (email, amount, route) => {
 const create = async (userId, user) => {
   const role = 'client';
   const {
-    email, password, userName, ballance,
+    email, cpf, password, userName, ballance,
   } = user;
   await connection.execute(
-    'INSERT INTO users (user_id, email, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?)',
-    [userId, email, password, userName, ballance, role, new Date(), new Date()],
+    'INSERT INTO users (user_id, email, cpf, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
+    [userId, email, cpf, password, userName, ballance, role, new Date(), new Date()],
   );
+  // console.log(bduser);
   const newUser = await getByEmail(email);
   return newUser;
 };
 
+const deleteUser = async (id) => {
+  const [deletedUser] = await connection.execute('DELETE FROM users WHERE user_id = ?', [id]);
+  return deletedUser;
+};
+
+const updateUser = async (id, user) => {
+  const {
+    email, password, userName, ballance,
+  } = user;
+  const [updatedUser] = await connection.execute(
+    'UPDATE users SET email = ?, password = ?, name = ?, ballance = ?, updated_at = ? WHERE user_id = ?',
+    [email, password, userName, ballance, new Date(), id],
+  );
+  return updatedUser;
+};
+
 module.exports = {
-  getAll, getByEmail, getByEmailAndPassword, updateBallance, transaction, create,
+  getAll,
+  getById,
+  getByEmail,
+  getByEmailAndPassword,
+  updateBallance,
+  transaction,
+  create,
+  deleteUser,
+  updateUser,
 };
