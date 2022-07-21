@@ -9,6 +9,7 @@ USE heroku_b5432e3f1df596d;
 CREATE TABLE
     `users`(
         `user_id` VARCHAR(255) PRIMARY KEY,
+        `cpf` VARCHAR(255) NOT NULL UNIQUE,
         `email` VARCHAR(255) NOT NULL UNIQUE,
         `password` VARCHAR(255) NOT NULL,
         `name` VARCHAR(255) NOT NULL,
@@ -36,6 +37,7 @@ CREATE TABLE
         `user_id` VARCHAR(255),
         `quantity` INT NOT NULL,
         `value` DECIMAL(19, 4) NOT NULL,
+        `total_value` DECIMAL(19, 4) NOT NULL,
         `operation` VARCHAR(255) NOT NULL,
         `created_at` DATETIME,
         `updated_at` DATETIME
@@ -44,6 +46,7 @@ CREATE TABLE
 INSERT INTO
     `users` (
         `user_id`,
+        `cpf`,
         `email`,
         `password`,
         `name`,
@@ -54,15 +57,17 @@ INSERT INTO
     )
 VALUES (
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
+        '12345678901',
         'paolo@xpinc.com',
         '@PaoloNaXPInc2022',
         'Paolo',
         '100000.00',
-        'admin',
+        'client',
         NOW(),
         NOW()
     ), (
         '4907c20d-4d8e-4714-a8d2-fc9138602f80',
+        '12345678902',
         'luca@xpinc.com',
         '@PaoloNaXPInc2022',
         'Luca',
@@ -71,9 +76,10 @@ VALUES (
         NOW(),
         NOW()
     ), (
-        'b89f147d-c12c-407a-b3e6-49b5da633021 ',
+        'b89f147d-c12c-407a-b3e6-49b5da633021',
+        '12345678903',
         'admin@xpinc.com',
-        '123456',
+        '@PaoloNaXPInc2022',
         'Admin',
         '0.00',
         'admin',
@@ -124,6 +130,7 @@ INSERT INTO
         `user_id`,
         `quantity`,
         `value`,
+        `total_value`,
         `operation`,
         `created_at`,
         `updated_at`
@@ -133,7 +140,8 @@ VALUES (
         '670ef6c0-5f48-450d-afc8-e2794d19a49a',
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
         '200',
-        '100.00',
+        '11.00',
+        '2200.00',
         'buy',
         NOW(),
         NOW()
@@ -142,7 +150,8 @@ VALUES (
         '3f335ba1-5f8a-4b50-b309-3bdcfffb3040',
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
         '200',
-        '100.00',
+        '9.00',
+        '1800.00',
         'buy',
         NOW(),
         NOW()
@@ -151,7 +160,8 @@ VALUES (
         '3f335ba1-5f8a-4b50-b309-3bdcfffb3040',
         '4907c20d-4d8e-4714-a8d2-fc9138602f80',
         '100',
-        '100.00',
+        '10.00',
+        '1000.00',
         'buy',
         NOW(),
         NOW()
