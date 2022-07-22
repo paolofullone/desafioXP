@@ -11,7 +11,7 @@ router.use(validateAuth);
 
 /**
  * @swagger
- * /stocks:
+ * /ativos:
  *  get:
  *    tags:
  *     - Stocks
@@ -37,7 +37,7 @@ router.get('/', validateAdmin, stocksController.getAll);
 
 /**
  * @swagger
- * /stocks:
+ * /ativos:
  *  post:
  *    tags:
  *     - Stocks
@@ -74,7 +74,7 @@ router.post('/', validateAdmin, validateNewStock, stocksController.create);
 
 /**
  * @swagger
- * /stocks/{id}:
+ * /ativos/{id}:
  *  get:
  *    tags:
  *     - Stocks

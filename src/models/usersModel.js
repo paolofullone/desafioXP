@@ -29,7 +29,7 @@ const getByEmailAndPassword = async (email, password) => {
 };
 
 const updateBallance = async (userId, route, requestedOperations) => {
-  const operationType = route === '/purchase' ? '-' : '+';
+  const operationType = route === '/comprar' ? '-' : '+';
   const stocks = await stocksModel.getAll();
   const totalValue = totalOperationValue(requestedOperations, stocks);
   const buyOrSellValue = operationType === '-' ? -totalValue : +totalValue;

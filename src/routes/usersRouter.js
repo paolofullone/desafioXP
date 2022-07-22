@@ -78,7 +78,7 @@ router.post('/', validateAdmin, validateNewUser, usersController.create);
 
 /**
  * @swagger
- * /users/deposit:
+ * /users/conta/deposito:
  *  post:
  *    tags:
  *     - UserAccount
@@ -108,11 +108,11 @@ router.post('/', validateAdmin, validateNewUser, usersController.create);
  *        description: Erro interno.
  *
 */
-router.post('/deposit', validateTransaction, usersController.transaction);
+router.post('/conta/deposito', validateTransaction, usersController.transaction);
 
 /**
  * @swagger
- * /users/withdraw:
+ * /users/conta/saque:
  *  post:
  *    tags:
  *     - UserAccount
@@ -142,11 +142,11 @@ router.post('/deposit', validateTransaction, usersController.transaction);
  *      500:
  *        description: Erro interno.
 */
-router.post('/withdraw', validateTransaction, validateWithdraw, usersController.transaction);
+router.post('/conta/saque', validateTransaction, validateWithdraw, usersController.transaction);
 
 /**
  * @swagger
- * /users/ballance:
+ * /users/conta/saldo:
  *  get:
  *    tags:
  *     - UserAccount
@@ -166,7 +166,7 @@ router.post('/withdraw', validateTransaction, validateWithdraw, usersController.
  *      500:
  *        description: Erro interno.
 */
-router.get('/ballance', usersController.getBallance);
+router.get('/conta/saldo', usersController.getBallance);
 
 /**
  * @swagger

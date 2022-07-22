@@ -11,7 +11,7 @@ const getById = async (stockId) => {
 };
 
 const update = async (stock, route) => {
-  const operation = route === '/purchase' ? '-' : '+';
+  const operation = route === '/comprar' ? '-' : '+';
   const { stockId } = stock;
   let { quantity } = stock;
   quantity = operation === '-' ? -quantity : +quantity;

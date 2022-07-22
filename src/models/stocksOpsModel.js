@@ -16,7 +16,7 @@ const getWalletByUserId = async (userId) => {
 };
 
 const create = async (opId, userId, newOperation, route) => {
-  const operationType = route === '/purchase' ? 'buy' : 'sell';
+  const operationType = route === '/comprar' ? 'buy' : 'sell';
   const { stockId, quantity, stockPrice } = newOperation;
   const totalValue = quantity * stockPrice[0].value;
   const [value] = await connection.execute(

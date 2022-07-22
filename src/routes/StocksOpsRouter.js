@@ -12,10 +12,10 @@ const validateAdmin = require('../middleware/validateAdmin');
 
 /**
  * @swagger
- * /stocksOperations:
+ * /investimentos:
  *  get:
  *    tags:
- *     - Wallet
+ *     - UserWallet
  *    description: Retorna todas as operações de todas as pessoas usuárias. (requer admin).
  *    security:
  *      - bearerAuth: []
@@ -38,10 +38,10 @@ router.get('/', validateAuth, validateAdmin, stocksOpsController.getAll);
 
 /**
  * @swagger
- * /stocksOperations/{id}:
+ * /investimentos/{id}:
  *  get:
  *    tags:
- *     - Wallet
+ *     - UserWallet
  *    description: Retorna todas as operações da pessoa usuária logada.
  *    parameters:
  *      - in: path
@@ -69,10 +69,10 @@ router.get('/:id', validateAuth, stocksOpsController.getWalletByUserId);
 
 /**
  * @swagger
- * /stocksOperations/purchase:
+ * /investimentos/comprar:
  *  post:
  *    tags:
- *     - Wallet
+ *     - UserWallet
  *    description: Realiza uma compra de ações da pessoa usuária logada.
  *    requestBody:
  *      required: true
@@ -108,14 +108,14 @@ router.get('/:id', validateAuth, stocksOpsController.getWalletByUserId);
  *      500:
  *        description: Erro interno.
 */
-router.post('/purchase', validateAuth, validateStocks, validateBallance, stocksOpsController.create);
+router.post('/comprar', validateAuth, validateStocks, validateBallance, stocksOpsController.create);
 
 /**
  * @swagger
- * /stocksOperations/sell:
+ * /investimentos/vender:
  *  post:
  *    tags:
- *     - Wallet
+ *     - UserWallet
  *    description: Realiza uma venda de ações da pessoa usuária logada.
  *    requestBody:
  *      required: true
@@ -151,6 +151,6 @@ router.post('/purchase', validateAuth, validateStocks, validateBallance, stocksO
  *      500:
  *        description: Erro interno.
 */
-router.post('/sell', validateAuth, validateSell, validateUserSellStocks, stocksOpsController.create);
+router.post('/vender', validateAuth, validateSell, validateUserSellStocks, stocksOpsController.create);
 
 module.exports = router;
