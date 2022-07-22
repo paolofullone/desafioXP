@@ -187,9 +187,7 @@ describe('Testes da camada de Service dos usuários', () => {
       try {
         const userId = uuidv4();
         await usersService.create(userId, inputUser);
-        console.log('deu ruim');
       } catch (error) {
-        console.log('errror', error);
         expect(error.message).to.be.equal(
           'Usuário já existe no banco de dados. Favor informar um email e CPF únicos.'
         );
@@ -209,7 +207,6 @@ describe('Testes da camada de Service dos usuários', () => {
       const result = await usersService.deleteUser(
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a'
       );
-      console.log('result', result);
       expect(result).to.be.equal(true);
     });
   });
@@ -236,10 +233,23 @@ describe('Testes da camada de Service dos usuários', () => {
       email: 'paolo@xpinc.com',
       password: '@PaoloXP2022',
       userName: 'Xablauzer',
-      ballance: 65472.0,
+      ballance: 65472,
     };
+    const updatedUser = [
+      {
+        user_id: 'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
+        email: 'paolo@xpinc.com',
+        cpf: '12345678901',
+        password: '@PaoloNaXPInc2022',
+        user_name: 'Xablauzer',
+        ballance: '65472.00',
+        role: 'admin',
+        created_at: '2022-07-17T17:19:16.000Z',
+        updated_at: '2022-07-17T17:19:16.000Z'
+      }
+    ]
     beforeEach(async () => {
-      sinon.stub(usersModel, 'updateUser').resolves(user);
+      sinon.stub(usersModel, 'updateUser').resolves(updatedUser);
     });
 
     afterEach(() => {
@@ -251,8 +261,8 @@ describe('Testes da camada de Service dos usuários', () => {
         inputUser
       );
       expect(result).to.be.an('array');
-      expect(result[0].user_name).to.be.equal('Xablauzer');
       expect(result[0].email).to.be.equal('paolo@xpinc.com');
+      expect(result[0].user_name).to.be.equal('Xablauzer');
     });
   });
 
