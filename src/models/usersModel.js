@@ -24,7 +24,6 @@ const getById = async (id) => {
 
 const getByEmailAndPassword = async (email, password) => {
   const [user] = await connection.execute('SELECT * FROM users WHERE email = ? AND password = ?', [email, password]);
-  // userWallet(user);
   return user;
 };
 
@@ -58,12 +57,15 @@ const create = async (userId, user) => {
   const {
     email, cpf, password, userName, ballance,
   } = user;
-  await connection.execute(
+  const [result] = await connection.execute(
     'INSERT INTO users (user_id, email, cpf, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     [userId, email, cpf, password, userName, ballance, role, new Date(), new Date()],
   );
-  const newUser = await getByEmail(email);
-  return newUser;
+  if (result.length) {
+    const newUser = await getByEmail(email);
+    return newUser;
+  }
+  return null;
 };
 
 const deleteUser = async (id) => {

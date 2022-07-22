@@ -40,9 +40,12 @@ const create = async (user) => {
   const userId = uuidv4();
   try {
     const newUser = await usersModel.create(userId, user);
+    if (!newUser.length) {
+      throw new Error();
+    }
     return newUser;
   } catch (error) {
-    const err = { status: 409, message: 'Usuário já existe no banco de dados. Favor informar um email e CPF únicos' };
+    const err = { status: 409, message: 'Usuário já existe no banco de dados. Favor informar um email e CPF únicos.' };
     throw err;
   }
 };
