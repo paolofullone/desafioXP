@@ -168,7 +168,82 @@ router.post('/withdraw', validateTransaction, validateWithdraw, usersController.
 */
 router.get('/ballance', usersController.getBallance);
 
+/**
+ * @swagger
+ * /users/{id}:
+ *  get:
+ *    tags:
+ *     - Users
+ *    description: Retorna os dados da pessoa usuária.
+ *    security:
+ *      - bearerAuth: []
+ *    responses:
+ *      200:
+ *        content:
+ *          application/json:
+ *            schema:
+ *              type: array
+ *              items:
+ *                $ref: '#/components/schemas/UserResponse'
+ *      400:
+ *        description: Faltam campos exigidos para a requisição.
+ *      401:
+ *        description: Token expirado ou inválido.
+ *      403:
+ *        description: Acesso negado.
+ *      500:
+ *        description: Erro interno.
+*/
 router.get('/:id', usersController.getById);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  delete:
+ *    tags:
+ *     - Users
+ *    description: Deleta o usuário do banco de dados.
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      200:
+ *       content:
+ *        application/json:
+ *         schema:
+ *          type: array
+ *         items:
+ *         $ref: '#/components/schemas/UserDeleted'
+ *      404:
+ *        description: Usuário não encontrado.
+ *      500:
+ *        description: Erro interno.
+*/
 router.delete('/:id', usersController.deleteUser);
+
+/**
+ * @swagger
+ * /users/{id}:
+ *  put:
+ *    tags:
+ *     - Users
+ *    description: Atualiza email, senha, nome e saldo (cpf somente o DBA pode atualizar).
+ *    security:
+ *     - bearerAuth: []
+ *    responses:
+ *      200:
+ *       content:
+ *        application/json:
+ *         schema:
+ *          type: array
+ *         items:
+ *         $ref: '#/components/schemas/UserResponse'
+ *      400:
+ *        description: Favor informar todos os campos para criação do usuário.
+ *      404:
+ *        description: Usuário não encontrado.
+ *      500:
+ *        description: Erro interno.
+*/
+router.put('/:id', validateNewUser, usersController.updateUser);
 
 module.exports = router;
