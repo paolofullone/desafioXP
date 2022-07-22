@@ -1,0 +1,527 @@
+{
+	"info": {
+		"_postman_id": "ecf7c693-66db-48a2-ba21-16f8bc0d225e",
+		"name": "DesafioXP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20953724"
+	},
+	"item": [
+		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "Post Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"const resposta = pm.response.json();\r",
+									"pm.globals.set(\"token\", resposta.token);\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"paolo@xpinc.com\",\r\n    \"password\": \"@PaoloNaXPInc2022\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/login",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"login"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "UserWallet & Account",
+			"item": [
+				{
+					"name": "POST depósito",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 999999\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/conta/deposito",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"conta",
+								"deposito"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Venda de Ações",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"stockId\": \"670ef6c0-5f48-450d-afc8-e2794d19a49a\",\r\n        \"quantity\": 10\r\n    },\r\n        {\r\n        \"stockId\": \"3f335ba1-5f8a-4b50-b309-3bdcfffb3040\",\r\n        \"quantity\": 1\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/investimentos/vender",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"investimentos",
+								"vender"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Compra de Ações",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n    {\r\n        \"stockId\": \"670ef6c0-5f48-450d-afc8-e2794d19a49a\",\r\n        \"quantity\": 200\r\n    },\r\n        {\r\n        \"stockId\": \"3f335ba1-5f8a-4b50-b309-3bdcfffb3040\",\r\n        \"quantity\": 200\r\n    }\r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/investimentos/comprar",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"investimentos",
+								"comprar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Stocks By User Id (wallet)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/investimentos/cabfd67e-15e9-4e08-a8ad-0c65f5ed717a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"investimentos",
+								"cabfd67e-15e9-4e08-a8ad-0c65f5ed717a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todas as Operações de Compra e Venda (admin)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/investimentos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"investimentos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post Saque",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"amount\": 10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/conta/saque",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"conta",
+								"saque"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get saldo",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/conta/saldo",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"conta",
+								"saldo"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todas as Ações (admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/ativos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ativos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Ações",
+			"item": [
+				{
+					"name": "Get Ação por ID",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/ativos/670ef6c0-5f48-450d-afc8-e2794d19a49a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ativos",
+								"670ef6c0-5f48-450d-afc8-e2794d19a49a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post nova ação (admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Nova Ação\",\r\n    \"ticker\": \"NAA3\",\r\n    \"value\": 237.43,\r\n    \"availableQuantity\": 10000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/ativos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ativos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Get Pessoas Usuárias (admin)",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post pessoa usuária (admin)",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"paolo@gmail.com\",\r\n    \"cpf\": \"12345678904\",\r\n    \"password\": \"@PaoloXP2022\",\r\n    \"userName\": \"PaoloNaXPss3\",\r\n    \"ballance\": 65472.0000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Pessoa Usuária",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/cabfd67e-15e9-4e08-a8ad-0c65f5ed717a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"cabfd67e-15e9-4e08-a8ad-0c65f5ed717a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Pessoa Usuária",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"url": {
+							"raw": "localhost:3000/users/cabfd67e-15e9-4e08-a8ad-0c65f5ed717a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"cabfd67e-15e9-4e08-a8ad-0c65f5ed717a"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "PUT User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"paolo@xpinc.com\",\r\n    \"password\": \"@PaoloXP2022\",\r\n    \"userName\": \"Xablauzer\",\r\n    \"ballance\": 65472.0000\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:3000/users/cabfd67e-15e9-4e08-a8ad-0c65f5ed717a",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"users",
+								"cabfd67e-15e9-4e08-a8ad-0c65f5ed717a"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
