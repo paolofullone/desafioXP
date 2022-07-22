@@ -8,7 +8,8 @@
     "dev": "nodemon index.js",
     "dockerlogs": "docker logs -f desafio_xp",
     "lint": "eslint --no-inline-config --ext .js,.jsx --no-error-on-unmatched-pattern -c .eslintrc.js .",
-    "test:mocha": "nyc --all --include models --include services --include controllers mocha test/unit/**/*.js --exit",
+    "test:mocha": "mocha test/unit/**/*.js --exit",
+    "test:coverage": "nyc npm run test:mocha -- --coverage",
     "deploy": "git commit --allow-empty -m 'deploy' && git push heroku main"
   },
   "repository": {
@@ -23,6 +24,7 @@
   },
   "homepage": "https://github.com/paolofullone/desafioXP#readme",
   "devDependencies": {
+    "c8": "^7.12.0",
     "chai": "^4.3.6",
     "chai-as-promised": "^7.1.1",
     "eslint": "^8.19.0",
@@ -34,7 +36,8 @@
     "nodemon": "^2.0.19",
     "nyc": "^15.1.0",
     "prettier": "^2.7.1",
-    "sinon": "^14.0.0"
+    "sinon": "^14.0.0",
+    "sinon-chai": "^3.7.0"
   },
   "dependencies": {
     "cors": "^2.8.5",

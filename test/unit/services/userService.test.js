@@ -17,7 +17,7 @@ const usersService = require('../../../src/services/usersServices');
 
 const { users, user } = require('../../mocks');
 
-describe('Testes da camada de service dos usuários', () => {
+describe('Testes da camada de Service dos usuários', () => {
   describe('Teste do método getAll', () => {
     beforeEach(async () => {
       sinon.stub(connection, 'execute').resolves([users]);

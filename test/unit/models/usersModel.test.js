@@ -14,7 +14,7 @@ const usersModel = require('../../../src/models/usersModel');
 
 const { users, user } = require('../../mocks');
 
-describe('Testes da camada de controller dos usuários', () => {
+describe('Testes da camada de Model dos usuários', () => {
   describe('Testes do método getAll', () => {
     beforeEach(async () => {
       sinon.stub(connection, 'execute').resolves([users]);
