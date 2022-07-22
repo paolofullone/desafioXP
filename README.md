@@ -58,7 +58,7 @@ Além das rotas acima, implementei as seguintes rotas:
 - /users (DELETE) => deleta um usuário (requer admin)
 - /users/{cod-cliente} (PUT) => atualiza informações do usuário
 
-
+O desafio solicitava os ID's como integers, porém optei por utilizar o UUID V4 para gerar os ID's. A escolha foi por entender que desta forma a sequência de ID's será protegida, a chance de que ocorra uma duplicação de ID's é muito baixa conforme pesquisei.
 
 ## Documentação da API
 
@@ -66,8 +66,7 @@ A documentação da API foi realizada utilizando o Swagger e pode ser acessada n
 
 Para fins de avaliação, algumas rotas privadas e acesso admin foram disponibilizados de forma pública no Swagger.
 
-
-
+Também disponibilizei na pasta `docs` a collection do Postman.
 
 
 
@@ -140,8 +139,9 @@ Além das funcionalidades extras que implementei, poderia implementar uma cripto
 
 Aplicação de todos os verbos do CRUD para todas as entidades.
 
+## Débito Técnico
 
-
+Implementação de Transaction e Rollback nas funções SQL que alteram mais de uma tabela em somente uma transação.
 
 ## Variáveis de Ambiente
 
