@@ -54,7 +54,7 @@ const deleteUser = async (id) => {
     const error = { status: 404, message: 'Usuário não encontrado.' };
     throw error;
   }
-  return deletedUser;
+  return true;
 };
 
 const updateUser = async (id, user) => {

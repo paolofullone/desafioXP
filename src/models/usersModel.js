@@ -62,7 +62,6 @@ const create = async (userId, user) => {
     'INSERT INTO users (user_id, email, cpf, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     [userId, email, cpf, password, userName, ballance, role, new Date(), new Date()],
   );
-  // console.log(bduser);
   const newUser = await getByEmail(email);
   return newUser;
 };
