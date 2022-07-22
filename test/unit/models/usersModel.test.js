@@ -39,10 +39,13 @@ describe('Testes da camada de Model dos usuários', () => {
     afterEach(() => {
       connection.execute.restore();
     });
-    it('Deve retornar um usuário', async () => {
+    it('Deve retornar o usuário "Paolo"', async () => {
       const userReturned = await usersModel.getByEmail('paolo@xpinc.com');
+      // console.log(userReturned);
       expect(userReturned).to.be.an('array');
       expect(userReturned).to.have.lengthOf(1);
+      expect(connection.execute.calledOnce).to.be.true;
+      expect(connection.execute.calledTwice).to.be.false;
     });
   });
   describe('Testes do método getByEmailAndPassword', () => {
@@ -88,7 +91,7 @@ describe('Testes da camada de Model dos usuários', () => {
   //     console.log('oi');
   //     const response = await usersModel.updateBallance(
   //       'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
-  //       '/purchase',
+  //       '/comprar',
   //       [{ stockId: '3f335ba1-5f8a-4b50-b309-3bdcfffb3040', quantity: 1 }],
   //     );
   //     console.log('mazoque');
@@ -110,7 +113,7 @@ describe('Testes da camada de Model dos usuários', () => {
     it('Deve retonar um usuário com o saldo atualizado', async () => {
       const newBallance = await usersModel.transaction(
         'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
-        '/purchase',
+        '/comprar',
         [{ stockId: '670ef6c0-5f48-450d-afc8-e2794d19a49a', quantity: 1 }],
       );
       expect(+newBallance).to.be.an('number');
