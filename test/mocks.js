@@ -1,8 +1,8 @@
 const users = [
   {
     user_id: '4907c20d-4d8e-4714-a8d2-fc9138602f80',
-    email: 'luca@xpinc.com',
     cpf: '12345678902',
+    email: 'luca@xpinc.com',
     password: '@PaoloNaXPInc2022',
     user_name: 'Luca',
     ballance: '100000.00',
@@ -23,8 +23,8 @@ const users = [
   },
   {
     user_id: 'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
-    email: 'paolo@xpinc.com',
     cpf: '12345678901',
+    email: 'paolo@xpinc.com',
     password: '@PaoloNaXPInc2022',
     user_name: 'Paolo',
     ballance: '100000.00',
@@ -72,9 +72,14 @@ const result = [
   },
 ];
 
+const mockToken = {
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvQHhwaW5jLmNvbSIsInVzZXJJZCI6ImNhYmZkNjdlLTE1ZTktNGUwOC1hOGFkLTBjNjVmNWVkNzE3YSIsImlhdCI6MTY1ODUxNjk2MCwiZXhwIjoxNjU5MzgwOTYwfQ.ZiPPRk3np-cdcep7d_TUfv4CpsmltLFi4NUsr5M6vmg"
+}
+
 module.exports = {
   users,
   admin,
   user,
   result,
+  mockToken,
 };
