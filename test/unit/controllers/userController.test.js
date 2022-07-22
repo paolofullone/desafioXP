@@ -89,7 +89,6 @@ describe('Testes da camada de controller dos usuários', () => {
     });
     it('Deve retornar o user criado', async () => {
       const [newUser] = await usersService.create(req.body.user, res.user.email);
-      console.log(newUser);
       expect(newUser).to.be.an('array');
       expect(newUser).to.have.lengthOf(1);
       expect(newUser[0].email).to.be.equal(inputUser.email);

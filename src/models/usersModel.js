@@ -76,10 +76,11 @@ const updateUser = async (id, user) => {
   const {
     email, password, userName, ballance,
   } = user;
-  const [updatedUser] = await connection.execute(
+  await connection.execute(
     'UPDATE users SET email = ?, password = ?, name = ?, ballance = ?, updated_at = ? WHERE user_id = ?',
     [email, password, userName, ballance, new Date(), id],
   );
+  const updatedUser = await getById(id);
   return updatedUser;
 };
 

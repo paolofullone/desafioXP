@@ -91,6 +91,9 @@ const app = express();
  *        type: object
  *        example:
  *         message: 'Saldo atual 1.0000.00.'
+ *    UserDeleted:
+ *        example:
+ *         message: 'Usuário excluído com sucesso.'
  *    Stocks:
  *        type: object
  *        example:
