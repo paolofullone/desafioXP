@@ -11,7 +11,7 @@ const users = [
     updated_at: '2022-07-17T18:52:57.000Z',
   },
   {
-    user_id: 'b89f147d-c12c-407a-b3e6-49b5da633021 ',
+    user_id: 'b89f147d-c12c-407a-b3e6-49b5da633021',
     cpf: '12345678903',
     email: 'admin@xpinc.com',
     password: '@PaoloNaXPInc2022',

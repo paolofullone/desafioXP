@@ -7,14 +7,16 @@ const getByEmail = async (email) => {
   return user;
 };
 
-const getAll = async (email) => {
-  const user = await getByEmail(email);
-  if (user[0].role === 'client') {
-    const [client] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
-    return client;
-  }
+const getAllUsers = async () => {
   const [users] = await connection.execute('SELECT * FROM users');
   return users;
+};
+
+const getAll = async (email) => {
+  const userSearched = await getByEmail(email);
+  const { role } = userSearched[0];
+  if (role === 'admin') return getAllUsers();
+  return getByEmail(email);
 };
 
 const getById = async (id) => {
@@ -87,6 +89,7 @@ const updateUser = async (id, user) => {
 
 module.exports = {
   getAll,
+  getAllUsers,
   getById,
   getByEmail,
   getByEmailAndPassword,
