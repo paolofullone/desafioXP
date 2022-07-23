@@ -76,10 +76,53 @@ const mockToken = {
   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InBhb2xvQHhwaW5jLmNvbSIsInVzZXJJZCI6ImNhYmZkNjdlLTE1ZTktNGUwOC1hOGFkLTBjNjVmNWVkNzE3YSIsImlhdCI6MTY1ODUxNjk2MCwiZXhwIjoxNjU5MzgwOTYwfQ.ZiPPRk3np-cdcep7d_TUfv4CpsmltLFi4NUsr5M6vmg"
 }
 
+const stocks = [
+  {
+    "stock_id": "3f335ba1-5f8a-4b50-b309-3bdcfffb3040",
+    "available_quantity": 98800,
+    "value": "10.0000",
+    "ticker": "VALE5",
+    "name": "VALE",
+    "created_at": "2022-07-23T00:33:20.000Z",
+    "updated_at": "2022-07-23T00:33:20.000Z"
+  },
+  {
+    "stock_id": "670ef6c0-5f48-450d-afc8-e2794d19a49a",
+    "available_quantity": 97800,
+    "value": "10.0000",
+    "ticker": "XPINC",
+    "name": "XP INC.",
+    "created_at": "2022-07-23T00:33:20.000Z",
+    "updated_at": "2022-07-23T00:33:20.000Z"
+  },
+  {
+    "stock_id": "fe1f3d59-0dde-4b55-af4f-788bd8f7dd9e",
+    "available_quantity": 98000,
+    "value": "10.0000",
+    "ticker": "GGBR4",
+    "name": "GERDAU",
+    "created_at": "2022-07-23T00:33:20.000Z",
+    "updated_at": "2022-07-23T00:33:20.000Z"
+  }
+]
+
+const requestedOperations = [
+  {
+    "stockId": "670ef6c0-5f48-450d-afc8-e2794d19a49a",
+    "quantity": 20
+  },
+  {
+    "stockId": "3f335ba1-5f8a-4b50-b309-3bdcfffb3040",
+    "quantity": 20
+  }
+]
+
 module.exports = {
   users,
   admin,
   user,
   result,
   mockToken,
+  stocks,
+  requestedOperations
 };
