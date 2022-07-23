@@ -9,8 +9,10 @@ const { describe, it, beforeEach, afterEach } = require('mocha');
 const connection = require('../../../src/db/connection');
 
 const usersModel = require('../../../src/models/usersModel');
+const stocksModel = require('../../../src/models/stocksModel');
 
-const { users, user } = require('../../mocks');
+const { users, user, stocks } = require('../../mocks');
+const  totalOpValue  = require('../../../src/utils/totalOpValue');
 
 describe('Testes da camada de Model dos usuários', () => {
 
@@ -85,7 +87,7 @@ describe('Testes da camada de Model dos usuários', () => {
       expect(connection.execute.calledOnce).to.be.true;
       expect(connection.execute.calledTwice).to.be.false;
     });
-  });      
+  });
       
 
   describe('Testes do método getByEmailAndPassword', () => {
@@ -107,8 +109,22 @@ describe('Testes da camada de Model dos usuários', () => {
     });
   });
   describe('Testes do método create', () => {
+          const userInfo = {
+        email: 'paolo@xpinc.com',
+        cpf: '12345678901',
+        password: '@PaoloNaXPInc2022',
+        userName: 'Paolo',
+        ballance: '100000.00',
+      }
     beforeEach(async () => {
-      sinon.stub(connection, 'execute').resolves([user]);
+      sinon.stub(connection, 'execute').resolves([{
+        fieldCount: 0,
+        affectedRows: 1,
+        insertId: 0,
+        info: '',
+        serverStatus: 2,
+        warningStatus: 0
+      }]);
     });
 
     afterEach(() => {
@@ -116,34 +132,77 @@ describe('Testes da camada de Model dos usuários', () => {
     });
 
     it('Deve retornar um novo usuário criado', async () => {
-      const userUpdated = await usersModel.create(1, user);
-      expect(userUpdated).to.be.an('array');
-      expect(userUpdated).to.have.lengthOf(1);
+      const userCreated = await usersModel.create
+        ('cabfd67e-15e9-4e08-a8ad-0c65f5ed717a', userInfo);
+      expect(userCreated).to.be.an('object');
+      expect(userCreated.affectedRows).to.be.equal(1);
     });
   });
-  // describe('Testes do método updateBallance', () => {
-  //   beforeEach(async () => {
-  //     sinon.stub(connection, 'execute').resolves([result]);
-  //   });
 
-  //   afterEach(() => {
-  //     connection.execute.restore();
-  //   });
+  describe('Testes do método create', () => {
+    beforeEach(async () => {
+      sinon.stub(connection, 'execute').resolves([{
+        fieldCount: 0,
+        affectedRows: 0,
+        insertId: 0,
+        info: '',
+        serverStatus: 2,
+        warningStatus: 0
+      }]);
+    });
 
-  //   it('Deve retornar um saldo atualizado para o usuário informado', async () => {
-  //     console.log('oi');
-  //     const response = await usersModel.updateBallance(
-  //       'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
-  //       '/comprar',
-  //       [{ stockId: '3f335ba1-5f8a-4b50-b309-3bdcfffb3040', quantity: 1 }],
-  //     );
-  //     console.log('mazoque');
-  //     console.log('response', response);
-  //     expect(response).to.be.an('array');
-  //     // expect(response).to.have.lengthOf(2);
-  //   });
-  // });
-  // passei muito tempo tentando entender e não consegui, segui em frente e retorno depois.
+    afterEach(() => {
+      connection.execute.restore();
+    });
+
+    it('Deve falhar ao criar um novo usuário', async () => {
+      const userCreated = await usersModel.create
+        ('cabfd67e-15e9-4e08-a8ad-0c65f5ed717a', 'userInfo');
+      expect(userCreated).to.be.equal(null);
+    });
+  });
+
+
+
+  describe('Testes do método updateBallance', () => {
+    const requestedOperations = [
+      {
+        "stockId": "670ef6c0-5f48-450d-afc8-e2794d19a49a",
+        "quantity": 2
+      },
+      {
+        "stockId": "3f335ba1-5f8a-4b50-b309-3bdcfffb3040",
+        "quantity": 2
+      }
+    ];
+    const route = '/comprar';
+
+    beforeEach(async () => {
+      sinon.stub(connection, 'execute').resolves({
+        fieldCount: 0,
+        affectedRows: 1,
+        insertId: 0,
+        info: 'Rows matched: 1  Changed: 1  Warnings: 0',
+        serverStatus: 2,
+        warningStatus: 0,
+        changedRows: 1
+      });
+      sinon.stub(stocksModel, 'getAll').resolves(stocks);
+      sinon.stub(totalOpValue, 'totalOperationValue').returns(500);
+    });
+
+    afterEach(() => {
+      connection.execute.restore();
+      stocksModel.getAll.restore();
+      totalOpValue.totalOperationValue.restore();
+    });
+
+    it('Deve retornar um saldo atualizado para o usuário informado', async () => {
+      const response = await usersModel.updateBallance(user[0].user_id, route, requestedOperations);
+      expect(response).to.be.an('Object');
+      expect(response.affectedRows).to.be.equal(1);
+    });
+  });
   describe('Testes do método transaction', () => {
     beforeEach(async () => {
       sinon.stub(connection, 'execute').resolves([user]);
@@ -162,4 +221,62 @@ describe('Testes da camada de Model dos usuários', () => {
       expect(+newBallance).to.be.an('number');
     });
   });
+
+  describe('Testes do método deleteUser', () => {
+    beforeEach(async () => {
+      sinon.stub(connection, 'execute').resolves([{
+        fieldCount: 0,
+        affectedRows: 1,
+        insertId: 0,
+        info: '',
+        serverStatus: 2,
+        warningStatus: 0
+      }]);
+    });
+
+    afterEach(() => {
+      connection.execute.restore();
+    });
+
+    it('Deve retornar um usuário deletado', async () => {
+      const userDeleted = await usersModel.deleteUser('cabfd67e-15e9-4e08-a8ad-0c65f5ed717a');
+      expect(userDeleted).to.be.an('object');
+      expect(userDeleted.affectedRows).to.be.equal(1);
+    });
+  });
+  
+  describe('Testes do método updateUser', () => { 
+    const userInfo = {
+      email: 'paolo@xpinc.com',
+      password: '@PaoloNaXPInc2022',
+      userName: 'Paolo',
+      ballance: '100000.00',
+    };
+
+    beforeEach(async () => {
+      sinon.stub(connection, 'execute').resolves([{
+        fieldCount: 0,
+        affectedRows: 1,
+        insertId: 0,
+        info: '',
+        serverStatus: 2,
+        warningStatus: 0
+      }]);
+    });
+
+    afterEach(() => {
+      connection.execute.restore();
+    });
+
+    it('Deve retornar um usuário atualizado', async () => {
+      const userUpdated = await usersModel.updateUser(
+        'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
+        userInfo
+      );
+      expect(userUpdated).to.be.an('object');
+      expect(userUpdated.affectedRows).to.be.equal(1);
+    });
+
+  });
+
 });
