@@ -44,9 +44,10 @@ const updateBallance = async (userId, route, requestedOperations) => {
 };
 
 const transaction = async (email, amount, route) => {
+  console.log(route);
   const [user] = await getByEmail(email);
   const userId = user.user_id;
-  const typeOperation = route === '/withdraw' ? '-' : '+';
+  const typeOperation = route === '/conta/saque' ? '-' : '+';
   const transactionValue = typeOperation === '-' ? -amount : +amount;
   await connection.execute(
     'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
