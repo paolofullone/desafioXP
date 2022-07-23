@@ -34,7 +34,12 @@ const updateStocks = async (requestedOperations, route) => {
 const create = async (userId, requestedOperations, route) => {
   createOperations(requestedOperations, userId, route);
   updateStocks(requestedOperations, route);
-  await usersModel.updateBallance(userId, route, requestedOperations);
+  try {
+    await usersModel.updateBallance(userId, route, requestedOperations);
+  } catch (error) {
+    const err = { status: error.status || 500, message: 'Não foi possível processar as operações, tente novamente mais tarde' };
+    throw err;
+  }
   return requestedOperations;
 };
 
