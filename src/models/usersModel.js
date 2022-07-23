@@ -1,14 +1,15 @@
+/* eslint-disable no-console */
 const connection = require('../db/connection');
 const { totalOperationValue } = require('../utils/totalOpValue');
 const stocksModel = require('./stocksModel');
 
 const getByEmail = async (email) => {
-  const [user] = await connection.execute('SELECT * FROM users WHERE email = ?', [email]);
+  const [user] = await connection.execute('SELECT user_id, cpf, email, name, ballance, role FROM users WHERE email = ?', [email]);
   return user;
 };
 
 const getAllUsers = async () => {
-  const [users] = await connection.execute('SELECT * FROM users');
+  const [users] = await connection.execute('SELECT user_id, cpf, email, name, ballance, role FROM users');
   return users;
 };
 
@@ -38,6 +39,7 @@ const updateBallance = async (userId, route, requestedOperations) => {
     'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
     [buyOrSellValue, userId],
   );
+
   return result;
 };
 
@@ -63,7 +65,8 @@ const create = async (userId, user) => {
     'INSERT INTO users (user_id, email, cpf, password, name, ballance, role, created_at, updated_at) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)',
     [userId, email, cpf, password, userName, ballance, role, new Date(), new Date()],
   );
-  if (result.length) {
+  const { affectedRows } = result;
+  if (affectedRows === 1) {
     const newUser = await getByEmail(email);
     return newUser;
   }
