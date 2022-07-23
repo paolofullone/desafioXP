@@ -8,7 +8,6 @@ chai.use(require('sinon-chai'));
 
 // https://stackoverflow.com/questions/45314317/invalid-chai-property-when-calling-calledonce
 
-const connection = require('../../../src/db/connection');
 const usersController = require('../../../src/controllers/usersController');
 const usersService = require('../../../src/services/usersServices');
 
@@ -19,14 +18,12 @@ describe('Testes da camada de controller dos usuários: ', () => {
     const req = {};
     const res = { user: { email: 'paolo@xpinc.com' } };
     beforeEach(async () => {
-      // sinon.stub(connection, 'execute').resolves(users);
       sinon.stub(usersService, 'getAll').resolves(users);
       res.status = sinon.stub().returns(res);
       res.json = sinon.stub().returns();
     });
 
     afterEach(() => {
-      // connection.execute.restore();
       usersService.getAll.restore();
     });
 
