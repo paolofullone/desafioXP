@@ -25,7 +25,7 @@ Para a entidade User implementei os 4 verbos do CRUD, apesar de não ter sido so
 Utilizei o JWT para validação e controle de tempo de sessão da pessoa usuária.
 ## Stack utilizada
 
-**Back-end:** Node, Express, JWT, MySQL, Swagger, Swagger-jsdoc.
+**Back-end:** Node, Express, Docker, Docker-Compose, JWT, MySQL, Swagger, Swagger-jsdoc.
 
 **Testes:** Mocha, chai, sinon.
 
@@ -68,7 +68,7 @@ Para fins de avaliação, algumas rotas privadas e acesso admin foram disponibil
 
 Também disponibilizei na pasta `docs` a collection do Postman.
 
-
+![Swagger](src/images/swagger.png)
 
 ## Rodando localmente
 
@@ -110,7 +110,7 @@ Para rodar os testes, execute o seguinte comando:
 ```bash
   npm run test:coverage
 ```
-
+![Testes](src/images/testes.png)
 
 ## Deploy
 
