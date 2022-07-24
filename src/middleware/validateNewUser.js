@@ -41,7 +41,7 @@ const validateBallance = (ballance) => {
   }
 };
 
-const validateNewUser = (req, res, next) => {
+const validateNewUser = (req, _res, next) => {
   const {
     email, password, userName, ballance,
   } = req.body;

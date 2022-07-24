@@ -1,6 +1,6 @@
 const usersModel = require('../models/usersModel');
 
-const validateAdmin = async (req, res, next) => {
+const validateAdmin = async (_req, res, next) => {
   const { email } = res.user;
   const user = await usersModel.getByEmail(email);
   if (user[0].role !== 'admin') {

@@ -1,4 +1,4 @@
-const validateNewStock = async (req, res, next) => {
+const validateNewStock = async (req, _res, next) => {
   const {
     name, ticker, value, availableQuantity,
   } = req.body;
