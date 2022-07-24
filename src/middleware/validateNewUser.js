@@ -1,5 +1,5 @@
 const validateName = (name) => {
-  if (name.length < 8) {
+  if (name.length < 3) {
     const error = {
       status: 400,
       message: 'username deve possuir no mínimo 8 caracteres',
