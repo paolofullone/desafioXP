@@ -44,7 +44,6 @@ const updateBallance = async (userId, route, requestedOperations) => {
 };
 
 const transaction = async (email, amount, route) => {
-  console.log(route);
   const [user] = await getByEmail(email);
   const userId = user.user_id;
   const typeOperation = route === '/conta/saque' ? '-' : '+';
