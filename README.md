@@ -23,11 +23,12 @@ Fiz os testes utilizando o Mocha, Chai e Sinon e optei por testar as três camad
 Para a entidade User implementei os 4 verbos do CRUD, apesar de não ter sido solicitado no desafio.
 
 Utilizei o JWT para validação e controle de tempo de sessão da pessoa usuária.
-## Stack utilizada
 
-**Back-end:** Node, Express, Docker, Docker-Compose, JWT, MySQL, Swagger, Swagger-jsdoc.
+## Diagrama de Entidades e Relacionamentos
 
-**Testes:** Mocha, chai, sinon.
+![DER](src/images/DER.png)
+
+Obs: a coluna "status" na tabela stock_client_ops não foi implementada, mas o objetivo dela é informar se a operação (compra ou venda), foi realizada com sucesso, cancelada ou rejeitada.
 
 ## Implementações extras:
 
@@ -60,6 +61,38 @@ Além das rotas acima, implementei as seguintes rotas:
 
 O desafio solicitava os ID's como integers, porém optei por utilizar o UUID V4 para gerar os ID's. A escolha foi por entender que desta forma a sequência de ID's será protegida, a chance de que ocorra uma duplicação de ID's é muito baixa conforme pesquisei.
 
+## Regras de Negócio
+
+Login:
+- O usuário deve ser cadastrado no banco de dados;
+- O usuário deve ser autenticado no banco de dados com login e senha;
+
+Admin:
+- O usuário deve ser cadastrado no banco de dados;
+- O usuário deve ser autenticado no banco de dados com login e senha;
+- O usuário deve ser um usuário administrador com o campo role = admin;
+
+Criação de nova pessoa usuária:
+- O nome deve ter no mínimo 3 caracteres;
+- O Email deve ter um formato válido;
+- A senha deve ter no mínimo 8 caracteres, um caracter especial e um número.
+- O saldo deve ser maior ou igual a 0;
+
+Criação de nova ação:
+- O nome deve ter no mínimo 3 caracteres;
+- A quantidade disponível deve ser maior ou igual a 0;
+- O valor da ação deve ser maior ou igual a 0;
+
+Venda de ação:
+- Deve ser informada uma operação com o ID (existente) da ação e a quantidade desejada de ser vendida;
+- A quantidade deve ser maior ou igual a 0;
+- A pessoa usuária logada deve possuir a quantidade de ações disponíveis para venda em sua carteira;
+
+Compra de ação:
+- Deve ser informada uma operação com o ID (existente) da ação e a quantidade desejada de ser comprada;
+- A quantidade deve ser maior ou igual a 0;
+- A pessoa usuária logada deve possuir em sua carteira a ação e a quantidade informada na operação de venda;
+
 ## Documentação da API
 
 A documentação da API foi realizada utilizando o Swagger e pode ser acessada neste [endereço](https://desafioxp.herokuapp.com/docs).
@@ -68,6 +101,7 @@ Para fins de avaliação, algumas rotas privadas e acesso admin foram disponibil
 
 Também disponibilizei na pasta `docs` a collection do Postman.
 
+Swagger:
 ![Swagger](src/images/swagger.png)
 
 ## Rodando localmente
@@ -110,16 +144,24 @@ Para rodar os testes, execute o seguinte comando:
 ```bash
   npm run test:coverage
 ```
+Tabela de cobertura dos testes:
 ![Testes](src/images/testes.png)
 
 ## Deploy
 
 O deploy deste projeto foi realizado no [Heroku](https://desafioxp.herokuapp.com/). 
 
-Utilizei CI/CD com a Dockerfile e main.yml do Github e configurações adicionais no Heroku.
+Utilizei CI/CD com a Dockerfile e main.yml do Github e configurações adicionais no Heroku (como a opção de somente realizar o deploy se a avaliação do ES Lint for aprovada).
 
+Configurações do Heroku:
 
+![Deploy](src/images/Deploy.png)
 
+## Stack utilizada
+
+**Back-end:** Node, Express, Docker, Docker-Compose, JWT, MySQL, Swagger, Swagger-jsdoc.
+
+**Testes:** Mocha, chai, sinon.
 
 ## Aprendizados
 
@@ -128,8 +170,6 @@ Durante a primeira etapa deste projeto, abri o home brooker da XP de uma forma d
 Minha primeira grande dificuldade foi modelar o banco de dados (e remodelei algumas vezes, talvez mais de uma dezenha de vezes). Detalhes como qual tipo de dado devo utilizar para os campos de saldo, preço etc nunca havia pesquisado.
 
 Ao elaborar os testes e ao elaborar a documentação em Swagger, o efeito colateral foram diversas refatorações do código.
-
-
 
 
 
