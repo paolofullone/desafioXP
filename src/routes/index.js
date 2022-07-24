@@ -2,8 +2,6 @@ const express = require('express');
 
 const app = express();
 
-// documentation
-
 /**
  * @swagger
  * components:

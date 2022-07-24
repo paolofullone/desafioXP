@@ -11,7 +11,6 @@ const { describe, it, beforeEach, afterEach } = require('mocha');
 const connection = require('../../../src/db/connection');
 const usersModel = require('../../../src/models/usersModel');
 const usersService = require('../../../src/services/usersServices');
-// const validateAdmin = require('../../../src/middleware/validateAdmin');
 
 const { users, user, mockToken } = require('../../mocks');
 

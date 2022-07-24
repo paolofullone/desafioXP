@@ -1,5 +1,4 @@
 const { v4: uuidv4 } = require('uuid');
-// const validateAdmin = require('../middleware/validateAdmin');
 
 const stocksModel = require('../models/stocksModel');
 
