@@ -39,6 +39,7 @@ CREATE TABLE
         `value` DECIMAL(19, 4) NOT NULL,
         `total_value` DECIMAL(19, 4) NOT NULL,
         `operation` VARCHAR(255) NOT NULL,
+        `status` VARCHAR(255), 
         `created_at` DATETIME,
         `updated_at` DATETIME
     );
