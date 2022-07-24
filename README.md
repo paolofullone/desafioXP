@@ -157,6 +157,8 @@ Configurações do Heroku:
 
 ![Deploy](src/images/Deploy.png)
 
+Diagrama gerado no [https://dbdiagram.io/](https://dbdiagram.io/)
+
 ## Stack utilizada
 
 **Back-end:** Node, Express, Docker, Docker-Compose, JWT, MySQL, Swagger, Swagger-jsdoc.
@@ -167,11 +169,11 @@ Configurações do Heroku:
 
 Durante a primeira etapa deste projeto, abri o home brooker da XP de uma forma diferente, buscando entender como cada parte funcionava do ponto de vista de código.
 
-Minha primeira grande dificuldade foi modelar o banco de dados (e remodelei algumas vezes, talvez mais de uma dezenha de vezes). Detalhes como qual tipo de dado devo utilizar para os campos de saldo, preço etc nunca havia pesquisado.
+Minha primeira grande dificuldade foi modelar o banco de dados (e remodelei algumas vezes, talvez mais de uma dezenha de vezes). Detalhes como qual tipo de dado devo utilizar para os campos de saldo, preço etc nunca havia pesquisado. Pensar nas regras de negócio, como impactavam no banco etc.
+
+As validações também foram desenvolvidas ao londo de toda a aplicação e sempre pensava em algum detalhe que poderia melhorar ao longo do desenvolvimento.
 
 Ao elaborar os testes e ao elaborar a documentação em Swagger, o efeito colateral foram diversas refatorações do código.
-
-
 
 ## Melhorias Futuras
 
@@ -201,5 +203,5 @@ Se você tiver algum feedback, dúvida ou sugestão, entre em contato via linked
 
 ## Autor
 
-- [@paolofullone](https://www.github.com/in/paolofullone)
+- [Paolo Fullone](https://www.github.com/in/paolofullone)
 
