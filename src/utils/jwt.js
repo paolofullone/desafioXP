@@ -1,4 +1,5 @@
 const jwt = require('jsonwebtoken');
+const xpError = require('./error');
 
 const { JWT_SECRET } = process.env;
 
@@ -9,16 +10,12 @@ const jwtConfig = {
 const generateJWTToken = (email, userId) => jwt.sign({ email, userId }, JWT_SECRET, jwtConfig);
 
 const authenticateToken = async (token) => {
-  if (!token) {
-    const error = { status: 400, message: 'Token não encontrado.' };
-    throw error;
-  }
+  if (!token) throw xpError(400, 'Token não encontrado.');
   try {
     const decoded = jwt.verify(token, JWT_SECRET);
     return decoded;
   } catch (error) {
-    const err = { status: 401, message: 'Token expirado ou inválido' };
-    throw err;
+    throw xpError(401, 'Token expirado ou inválido');
   }
 };
 

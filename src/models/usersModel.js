@@ -35,12 +35,10 @@ const updateBallance = async (userId, route, requestedOperations) => {
   const stocks = await stocksModel.getAll();
   const totalValue = totalOperationValue(requestedOperations, stocks);
   const buyOrSellValue = operationType === '-' ? -totalValue : +totalValue;
-  const result = await connection.execute(
+  return connection.execute(
     'UPDATE users SET ballance = ballance + ? WHERE user_id = ?',
     [buyOrSellValue, userId],
   );
-
-  return result;
 };
 
 const transaction = async (email, amount, route) => {

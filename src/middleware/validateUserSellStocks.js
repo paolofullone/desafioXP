@@ -1,6 +1,7 @@
 const stocksOpsModel = require('../models/stocksOpsModel');
 const stocksModel = require('../models/stocksModel');
 const { userWallet } = require('../utils/userWallet');
+const xpError = require('../utils/error');
 
 const validateUserSellStocks = async (req, res, next) => {
   const requestedOperations = req.body;
@@ -11,13 +12,11 @@ const validateUserSellStocks = async (req, res, next) => {
     const { stockId, quantity } = operation;
     const stock = await stocksModel.getById(stockId);
     if (!stock.length) {
-      const error = { status: 400, message: `Ação ${operation.stockId} não encontrada na corretora.` };
-      throw error;
+      throw xpError(400, `Ação ${operation.stockId} não encontrada na corretora.`);
     }
     const validStock = wallet.find((s) => s.stock_id === stockId);
     if (!validStock) {
-      const error = { status: 400, message: `Ação ${operation.stockId} não encontrada na carteira` };
-      throw error;
+      throw xpError(400, `Ação ${operation.stockId} não encontrada na carteira`);
     }
     if (validStock.quantity < quantity) {
       const error = {

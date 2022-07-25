@@ -31,8 +31,7 @@ const create = async (stock, stockId) => {
     [stockId, availableQuantity, value, ticker, name, new Date(), new Date()],
   );
 
-  const stockCreated = await getById(stockId);
-  return stockCreated;
+  return getById(stockId);
 };
 
 module.exports = {

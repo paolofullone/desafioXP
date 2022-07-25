@@ -1,6 +1,7 @@
 const { v4: uuidv4 } = require('uuid');
 const usersModel = require('../models/usersModel');
 const { generateJWTToken } = require('../utils/jwt');
+const xpError = require('../utils/error');
 
 const getAll = async (email) => {
   const users = await usersModel.getAll(email);
@@ -10,8 +11,7 @@ const getAll = async (email) => {
 const getById = async (id) => {
   const user = await usersModel.getById(id);
   if (!user.length) {
-    const error = { status: 404, message: 'Usuário não encontrado.' };
-    throw error;
+    throw xpError(404, 'Usuário não encontrado.');
   }
   return user;
 };
@@ -19,8 +19,7 @@ const getById = async (id) => {
 const getByEmailAndPassword = async (email, password) => {
   const client = await usersModel.getByEmailAndPassword(email, password);
   if (!client.length) {
-    const error = { status: 401, message: 'Usuário não encontrado, favor verificar email e senha informados.' };
-    throw error;
+    throw xpError(401, 'Usuário não encontrado, favor verificar email e senha informados.');
   }
   const userId = client[0].user_id;
   return generateJWTToken(email, userId);
@@ -45,8 +44,7 @@ const create = async (user) => {
     }
     return newUser;
   } catch (error) {
-    const err = { status: 409, message: 'Usuário já existe no banco de dados. Favor informar um email e CPF únicos.' };
-    throw err;
+    throw xpError(409, 'Usuário já existe no banco de dados. Favor informar um email e CPF únicos.');
   }
 };
 
@@ -54,8 +52,7 @@ const deleteUser = async (id) => {
   const deletedUser = await usersModel.deleteUser(id);
   const { affectedRows } = deletedUser;
   if (affectedRows === 0) {
-    const error = { status: 404, message: 'Usuário não encontrado.' };
-    throw error;
+    throw xpError(404, 'Usuário não encontrado.');
   }
   return true;
 };
@@ -63,8 +60,7 @@ const deleteUser = async (id) => {
 const updateUser = async (id, user) => {
   const updatedUser = await usersModel.updateUser(id, user);
   if (!updatedUser.length) {
-    const error = { status: 404, message: 'Usuário não encontrado.' };
-    throw error;
+    throw xpError(404, 'Usuário não encontrado.');
   }
   return updatedUser;
 };

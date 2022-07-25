@@ -35,7 +35,6 @@ describe('Teste da geração e validação de tokens JWT', () => {
       } catch (error) {
         expect(error).to.be.not.null;
         expect(error).to.be.not.undefined;
-        expect(error).to.be.a('object');
         expect(error.message).to.be.equal('Token não encontrado.');
         expect(error.status).to.be.equal(400);
       };
@@ -49,7 +48,6 @@ describe('Teste da geração e validação de tokens JWT', () => {
       } catch (error) {
         expect(error).to.be.not.null;
         expect(error).to.be.not.undefined;
-        expect(error).to.be.a('object');
         expect(error.message).to.be.equal('Token expirado ou inválido');
         expect(error.status).to.be.equal(401);
       };

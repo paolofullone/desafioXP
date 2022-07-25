@@ -4,6 +4,7 @@ const { userWallet } = require('../utils/userWallet');
 const stocksOpsModel = require('../models/stocksOpsModel');
 const stocksModel = require('../models/stocksModel');
 const usersModel = require('../models/usersModel');
+const xpError = require('../utils/error');
 
 const getAll = async () => {
   const stocksOps = await stocksOpsModel.getAll();
@@ -37,8 +38,7 @@ const create = async (userId, requestedOperations, route) => {
   try {
     await usersModel.updateBallance(userId, route, requestedOperations);
   } catch (error) {
-    const err = { status: error.status || 500, message: 'Não foi possível processar as operações, tente novamente mais tarde' };
-    throw err;
+    throw xpError(error.status || 500, 'Não foi possível processar as operações, tente novamente mais tarde');
   }
   return requestedOperations;
 };

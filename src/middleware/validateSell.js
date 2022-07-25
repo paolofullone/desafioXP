@@ -1,24 +1,21 @@
 const stocksModel = require('../models/stocksModel');
+const xpError = require('../utils/error');
 
 const validateSellStocks = async (req, res, next) => {
   const requestedOperations = req.body;
   if (!requestedOperations.length) {
-    const error = { status: 400, message: 'Favor informar ao menos uma operação de venda.' };
-    throw error;
+    throw xpError(400, 'Favor informar ao menos uma operação de venda.');
   }
   const promises = requestedOperations.map(async (operation) => {
     const stock = await stocksModel.getById(operation.stockId);
     if (!stock.length) {
-      const error = { status: 400, message: `A ação com id ${operation.stockId} informada não existe.` };
-      throw error;
+      throw xpError(400, `A ação com id ${operation.stockId} informada não existe.`);
     }
     if (!operation.stockId || !operation.quantity) {
-      const error = { status: 400, message: 'Favor informar o ID e a quantidade da ação.' };
-      throw error;
+      throw xpError(400, 'Favor informar o ID e a quantidade da ação.');
     }
     if (operation.quantity <= 0) {
-      const error = { status: 400, message: 'A quantidade da ação deve ser maior que zero.' };
-      throw error;
+      throw xpError(400, 'A quantidade da ação deve ser maior que zero.');
     }
   });
   Promise.all(promises)

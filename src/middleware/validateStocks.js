@@ -1,4 +1,5 @@
 const stocksModel = require('../models/stocksModel');
+const xpError = require('../utils/error');
 
 const validate = async (requestedOperations, _req, res, next) => {
   const promises = requestedOperations.map(async (operation) => {
@@ -19,8 +20,7 @@ const validate = async (requestedOperations, _req, res, next) => {
 const validateStocks = async (req, res, next) => {
   const requestedOperations = req.body;
   if (!requestedOperations.length) {
-    const error = { status: 400, message: 'Favor informar ao menos uma operação.' };
-    throw error;
+    throw xpError(400, 'Favor informar ao menos uma operação.');
   }
   validate(requestedOperations, req, res, next);
 };
