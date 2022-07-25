@@ -12,8 +12,7 @@ const generateJWTToken = (email, userId) => jwt.sign({ email, userId }, JWT_SECR
 const authenticateToken = async (token) => {
   if (!token) throw xpError(400, 'Token não encontrado.');
   try {
-    const decoded = jwt.verify(token, JWT_SECRET);
-    return decoded;
+    return jwt.verify(token, JWT_SECRET);
   } catch (error) {
     throw xpError(401, 'Token expirado ou inválido');
   }

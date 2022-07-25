@@ -6,15 +6,13 @@ const stocksModel = require('../models/stocksModel');
 const usersModel = require('../models/usersModel');
 const xpError = require('../utils/error');
 
-const getAll = async () => {
-  const stocksOps = await stocksOpsModel.getAll();
-  return stocksOps;
-};
+const getAll = async () => stocksOpsModel.getAll();
 
 const getWalletByUserId = async (userId) => {
+  const user = await usersModel.getById(userId);
+  if (!user.length) throw xpError(404, 'Usuário não encontrado');
   const stocksOps = await stocksOpsModel.getWalletByUserId(userId);
-  const wallet = userWallet(stocksOps);
-  return wallet;
+  return userWallet(stocksOps);
 };
 
 const createOperations = (requestedOperations, userId, route) => {

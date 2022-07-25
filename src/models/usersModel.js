@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 const connection = require('../db/connection');
 const { totalOperationValue } = require('../utils/totalOpValue');
 const stocksModel = require('./stocksModel');
@@ -65,8 +64,7 @@ const create = async (userId, user) => {
   );
   const { affectedRows } = result;
   if (affectedRows === 1) {
-    const newUser = await getByEmail(email);
-    return newUser;
+    return getByEmail(email);
   }
   return null;
 };
@@ -84,8 +82,7 @@ const updateUser = async (id, user) => {
     'UPDATE users SET email = ?, password = ?, name = ?, ballance = ?, updated_at = ? WHERE user_id = ?',
     [email, password, userName, ballance, new Date(), id],
   );
-  const updatedUser = await getById(id);
-  return updatedUser;
+  return getById(id);
 };
 
 module.exports = {

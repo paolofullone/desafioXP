@@ -11,7 +11,7 @@ const connection = require('../../../src/db/connection');
 const usersModel = require('../../../src/models/usersModel');
 const stocksModel = require('../../../src/models/stocksModel');
 
-const { users, user, stocks } = require('../../mocks');
+const { users, user, stocks, dbReturn } = require('../../mocks');
 const  totalOpValue  = require('../../../src/utils/totalOpValue');
 
 describe('Testes da camada de Model dos usuários', () => {
@@ -224,14 +224,7 @@ describe('Testes da camada de Model dos usuários', () => {
 
   describe('Testes do método deleteUser', () => {
     beforeEach(async () => {
-      sinon.stub(connection, 'execute').resolves([{
-        fieldCount: 0,
-        affectedRows: 1,
-        insertId: 0,
-        info: '',
-        serverStatus: 2,
-        warningStatus: 0
-      }]);
+      sinon.stub(connection, 'execute').resolves(dbReturn);
     });
 
     afterEach(() => {
@@ -254,14 +247,7 @@ describe('Testes da camada de Model dos usuários', () => {
     };
 
     beforeEach(async () => {
-      sinon.stub(connection, 'execute').resolves([{
-        fieldCount: 0,
-        affectedRows: 1,
-        insertId: 0,
-        info: '',
-        serverStatus: 2,
-        warningStatus: 0
-      }]);
+      sinon.stub(connection, 'execute').resolves(dbReturn);
     });
 
     afterEach(() => {

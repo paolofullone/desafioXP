@@ -5,8 +5,8 @@ const getAll = async (_req, res) => {
   return res.status(200).json(stocks);
 };
 
-const getWalletByUserId = async (_req, res) => {
-  const { userId } = res.user;
+const getWalletByUserId = async (req, res) => {
+  const { userId } = req.params;
   const wallet = await stocksOpsService.getWalletByUserId(userId);
   return res.status(200).json(wallet);
 };

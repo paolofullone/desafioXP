@@ -37,7 +37,7 @@ describe('Teste da geração e validação de tokens JWT', () => {
         expect(error).to.be.not.undefined;
         expect(error.message).to.be.equal('Token não encontrado.');
         expect(error.status).to.be.equal(400);
-      };
+      }
     });
   });
 
@@ -50,7 +50,7 @@ describe('Teste da geração e validação de tokens JWT', () => {
         expect(error).to.be.not.undefined;
         expect(error.message).to.be.equal('Token expirado ou inválido');
         expect(error.status).to.be.equal(401);
-      };
+      }
     });
   });
 })

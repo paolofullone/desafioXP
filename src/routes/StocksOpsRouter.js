@@ -34,6 +34,7 @@ const validateAdmin = require('../middleware/validateAdmin');
  *      500:
  *        description: Erro interno.
 */
+
 router.get('/', validateAuth, validateAdmin, stocksOpsController.getAll);
 
 /**
@@ -65,7 +66,7 @@ router.get('/', validateAuth, validateAdmin, stocksOpsController.getAll);
  *      500:
  *        description: Erro interno.
 */
-router.get('/:id', validateAuth, stocksOpsController.getWalletByUserId);
+router.get('/:userId', validateAuth, stocksOpsController.getWalletByUserId);
 
 /**
  * @swagger

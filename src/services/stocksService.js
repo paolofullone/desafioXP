@@ -3,10 +3,7 @@ const { v4: uuidv4 } = require('uuid');
 const stocksModel = require('../models/stocksModel');
 const xpError = require('../utils/error');
 
-const getAll = async () => {
-  const stocks = await stocksModel.getAll();
-  return stocks;
-};
+const getAll = async () => stocksModel.getAll();
 
 const getById = async (id) => {
   const stock = await stocksModel.getById(id);
@@ -19,8 +16,7 @@ const getById = async (id) => {
 const create = async (stock) => {
   const stockId = uuidv4();
   try {
-    const newStock = await stocksModel.create(stock, stockId);
-    return newStock;
+    return stocksModel.create(stock, stockId);
   } catch (error) {
     throw xpError(409, 'Erro ao criar ação ou ação existente');
   }

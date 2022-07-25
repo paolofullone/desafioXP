@@ -3,10 +3,7 @@ const usersModel = require('../models/usersModel');
 const { generateJWTToken } = require('../utils/jwt');
 const xpError = require('../utils/error');
 
-const getAll = async (email) => {
-  const users = await usersModel.getAll(email);
-  return users;
-};
+const getAll = async (email) => usersModel.getAll(email);
 
 const getById = async (id) => {
   const user = await usersModel.getById(id);
@@ -30,10 +27,7 @@ const getBallance = async (email) => {
   return user[0].ballance;
 };
 
-const transaction = async (email, amount, route) => {
-  const ballance = await usersModel.transaction(email, amount, route);
-  return ballance;
-};
+const transaction = async (email, amount, route) => usersModel.transaction(email, amount, route);
 
 const create = async (user) => {
   const userId = uuidv4();

@@ -19,12 +19,9 @@ const validateUserSellStocks = async (req, res, next) => {
       throw xpError(400, `Ação ${operation.stockId} não encontrada na carteira`);
     }
     if (validStock.quantity < quantity) {
-      const error = {
-        status: 400,
-        message: `Quantidade em carteira da ação ${operation.stockId} é menor que a quantidade solicitada para venda.`,
-      };
-      throw error;
+      throw xpError(400, `Quantidade em carteira da ação ${operation.stockId} é menor que a quantidade solicitada para venda.`);
     }
+
     return operation;
   });
   Promise.all(promises)

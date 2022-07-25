@@ -138,12 +138,6 @@ describe('Testes da camada de controller dos usuários: ', () => {
 
   describe('Teste do método update.', () => {
     const res = { };
-    const user = {
-      "email": "paolo@xpinc.com",
-      "password": "@PaoloXP2022",
-      "userName": "Xablauzer",
-      "ballance": 65472.0000
-    }
     const updated = [
       {
         user_id: 'cabfd67e-15e9-4e08-a8ad-0c65f5ed717a',
