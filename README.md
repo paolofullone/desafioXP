@@ -161,6 +161,13 @@ Configurações do Heroku:
 
 Diagrama gerado no [https://dbdiagram.io/](https://dbdiagram.io/)
 
+## Qualidade de Código
+
+Para verificar a qualidade do código, utilizei a ferramenta [SonarCloud](https://sonarcloud.io/) ao final do projeto, além de ter utilizado o ESLint e o Prettier desde o início do projeto.
+
+Avaliação SonarCloud:
+![SonarCloud](src/images/SonarCloud.png)
+
 ## Stack utilizada
 
 **Back-end:** Node, Express, Docker, Docker-Compose, JWT, MySQL, Swagger, Swagger-jsdoc.
