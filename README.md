@@ -182,7 +182,9 @@ Minha primeira grande dificuldade foi modelar o banco de dados (e remodelei algu
 
 As validações também foram desenvolvidas ao londo de toda a aplicação e sempre pensava em algum detalhe que poderia melhorar ao longo do desenvolvimento.
 
-Ao elaborar os testes e ao elaborar a documentação em Swagger, o efeito colateral foram diversas refatorações do código.
+Ao elaborar os testes e a documentação em Swagger, o efeito colateral foram diversas refatorações do código.
+
+Após o término, ao avaliar o código no SonarCloud, executei os testes e verifiquei se houve algum problema com o código.
 
 ## Melhorias Futuras
 
