@@ -67,7 +67,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 999999\r\n}",
+							"raw": "{\r\n    \"amount\": 1000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -136,7 +136,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "[\r\n    {\r\n        \"stockId\": \"670ef6c0-5f48-450d-afc8-e2794d19a49a\",\r\n        \"quantity\": 200\r\n    },\r\n        {\r\n        \"stockId\": \"3f335ba1-5f8a-4b50-b309-3bdcfffb3040\",\r\n        \"quantity\": 200\r\n    }\r\n]",
+							"raw": "[\r\n    {\r\n        \"stockId\": \"670ef6c0-5f48-450d-afc8-e2794d19a49a\",\r\n        \"quantity\": 20\r\n    },\r\n        {\r\n        \"stockId\": \"3f335ba1-5f8a-4b50-b309-3bdcfffb3040\",\r\n        \"quantity\": 20\r\n    }\r\n]",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -177,6 +177,13 @@
 							"path": [
 								"investimentos",
 								"cabfd67e-15e9-4e08-a8ad-0c65f5ed717a"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "1301564",
+									"disabled": true
+								}
 							]
 						}
 					},
@@ -229,7 +236,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"amount\": 10000\r\n}",
+							"raw": "{\r\n    \"amount\": 100\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -272,30 +279,6 @@
 								"users",
 								"conta",
 								"saldo"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Get Todas as Ações (admin)",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "Authorization",
-								"value": "{{token}}",
-								"type": "text"
-							}
-						],
-						"url": {
-							"raw": "localhost:3000/ativos",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"ativos"
 							]
 						}
 					},
@@ -344,13 +327,37 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Nova Ação\",\r\n    \"ticker\": \"NAA3\",\r\n    \"value\": 237.43,\r\n    \"availableQuantity\": 10000\r\n}",
+							"raw": "{\r\n    \"name\": \"XP Investimentos\",\r\n    \"ticker\": \"XPINC5\",\r\n    \"value\": 100.50,\r\n    \"availableQuantity\": 1000000\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
+						"url": {
+							"raw": "localhost:3000/ativos",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"ativos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todas as Ações (admin)",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "Authorization",
+								"value": "{{token}}",
+								"type": "text"
+							}
+						],
 						"url": {
 							"raw": "localhost:3000/ativos",
 							"host": [
