@@ -16,7 +16,7 @@ const getById = async (id) => {
 const create = async (stock) => {
   const stockId = uuidv4();
   try {
-    return stocksModel.create(stock, stockId);
+    return await stocksModel.create(stock, stockId);
   } catch (error) {
     throw xpError(409, 'Erro ao criar ação ou ação existente');
   }
