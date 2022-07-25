@@ -168,6 +168,7 @@ Para verificar a qualidade do código, utilizei a ferramenta [SonarCloud](https:
 Avaliação SonarCloud:
 ![SonarCloud](src/images/SonarCloud.png)
 
+**Obs: Os "SECURITY REVIEW" apontados pelo Sonar Cloud foram avaliados, e tratam-se dos arquivos que possuem informações de usuário e senha para fins de testes/validações.**
 ## Stack utilizada
 
 **Back-end:** Node, Express, Docker, Docker-Compose, JWT, MySQL, Swagger, Swagger-jsdoc.
