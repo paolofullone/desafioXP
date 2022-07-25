@@ -26,6 +26,8 @@ Utilizei o JWT para validação e controle de tempo de sessão da pessoa usuári
 
 ## Diagrama de Entidades e Relacionamentos
 
+Para o banco de dados optei pela utilização do banco de dados relaccional MySQL.
+
 ![DER](src/images/DER.png)
 
 Obs: a coluna "status" na tabela stock_client_ops não foi implementada, mas o objetivo dela é informar se a operação (compra ou venda), foi realizada com sucesso, cancelada ou rejeitada.
